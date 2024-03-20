@@ -9,7 +9,7 @@ $Password    =   "";
 if (isset($_COOKIE['userPasswordMRMATHS'])) {
     $userName = $_COOKIE['userName'];
     $userPasswordMRMATHS = $_COOKIE['userPasswordMRMATHS'];
-    $User   =   "SELECT * FROM tbl_register WHERE E_mail = '{$userName}' AND `Password` = '{$userPasswordMRMATHS}' LIMIT 1";
+    $User   =   "SELECT * FROM tbl_register WHERE (E_mail = '{$userName}' OR userName = '{$userName}') AND `Password` = '{$userPasswordMRMATHS}' LIMIT 1";
     $query  =   mysqli_query($connection, $User);
     if ($query) {
         if (mysqli_num_rows($query) == 1) {
@@ -17,6 +17,7 @@ if (isset($_COOKIE['userPasswordMRMATHS'])) {
             $Active     =   $details['Is_Active'];
             if ($Active == 1) {
                 $_SESSION['ID']    =   $details['ID'];
+                $_SESSION['userID_Name']    =   $details['userName'];
                 $_SESSION['First_name']    =   $details['First_name'];
                 $_SESSION['Last_name']    =   $details['Last_name'];
                 $_SESSION['E_mail']    =   $details['E_mail'];
@@ -37,7 +38,7 @@ if (isset($_COOKIE['userPasswordMRMATHS'])) {
         $Password = mysqli_real_escape_string($connection, $_POST['password']);
         $Hashpassword = sha1($Password);
 
-        $User   =   "SELECT * FROM tbl_register WHERE E_mail = '{$E_mail}' AND Password = '{$Hashpassword}' LIMIT 1";
+        $User   =   "SELECT * FROM tbl_register WHERE (E_mail = '{$E_mail}' OR userName = '{$E_mail}') AND Password = '{$Hashpassword}' LIMIT 1";
         $query  =   mysqli_query($connection, $User);
 
         if ($query) {
@@ -46,6 +47,7 @@ if (isset($_COOKIE['userPasswordMRMATHS'])) {
                 $Active     =   $details['Is_Active'];
                 if ($Active == 1) {
                     $_SESSION['ID']    =   $details['ID'];
+                    $_SESSION['userID_Name']    =   $details['userName'];
                     $_SESSION['First_name']    =   $details['First_name'];
                     $_SESSION['Last_name']    =   $details['Last_name'];
                     $_SESSION['E_mail']    =   $details['E_mail'];
@@ -152,8 +154,7 @@ if (isset($_COOKIE['userPasswordMRMATHS'])) {
             <div class="lable">
                 <div class="lableAling">
                     <h2> Log in </h2>
-                    <p>Mr.ChemistrY - Chemistry <span style='font-family: "Noto Sans Sinhala"; font-weight: bold;'> වලට තවත් නමක් </span> </p>
-
+                    <p>Mr.ChemistrY - <span style='font-family: "Noto Sans Sinhala"; font-weight: bold;'> වෙනස්ම රහකට </span> ChemistrY </p>
                 </div>
             </div>
             <div class="alinpage">
@@ -166,7 +167,7 @@ if (isset($_COOKIE['userPasswordMRMATHS'])) {
                         <p> <?php echo $verify; ?> </p>
                     </div>
                     <form method="post">
-                        <input type="email" name="email" id="email" checked value="<?php if (isset($_COOKIE['userName'])) {
+                        <input type="text" name="email" id="email" checked value="<?php if (isset($_COOKIE['userName'])) {
                                                                                         echo $_COOKIE['userName'];
                                                                                     } else {
                                                                                         echo $E_mail;

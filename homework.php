@@ -16,7 +16,7 @@ if (isset($_SESSION['ID'])) {
             if (mysqli_num_rows($result) == 1) {
                 $verify =   mysqli_fetch_assoc($result);
                 $verifyUser =   $verify['Confirm_user'];
-                $ID =   $verify['ID'];
+                $ID =   $verify['userName'];
                 $First_name =   $verify['First_name'];
                 $Last_name  =   $verify['Last_name'];
                 $E_mail     =   $verify['E_mail'];
@@ -55,7 +55,7 @@ if (isset($_SESSION['ID'])) {
                         } else {
                             $name = $First_name . " " . $Last_name;
 
-                            $insert_homework = "INSERT INTO `homework` (`User_ID`, `Name`, `Class`, `Title`, `File_Name`) VALUE ({$ID}, '{$name}', {$Class}, '$title', '{$fileName}')";
+                            $insert_homework = "INSERT INTO `homework` (`User_ID`, `Name`, `Class`, `Title`, `File_Name`) VALUE ('{$ID}', '{$name}', {$Class}, '$title', '{$fileName}')";
                             $insert_homework_result = mysqli_query($connection, $insert_homework);
                             $upload_to = "admin/homework/";
                             if ($insert_homework_result) {

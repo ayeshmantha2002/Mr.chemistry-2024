@@ -11,7 +11,7 @@ if (isset($_SESSION['ID'])) {
         if (mysqli_num_rows($result) == 1) {
             $verify =   mysqli_fetch_assoc($result);
             $verifyUser =   $verify['Confirm_user'];
-            $ID =   $verify['ID'];
+            $ID =   $verify['userName'];
             $First_name =   $verify['First_name'];
             $Last_name  =   $verify['Last_name'];
             $E_mail     =   $verify['E_mail'];
@@ -31,7 +31,7 @@ $banner_result = mysqli_query($connection, $banner);
     <div class="lable">
         <div class="lableAling">
             <h2> Mr.ChemistrY </h2>
-            <p> Chemistry <span style='font-family: "Noto Sans Sinhala"; font-weight: bold;'> වලට තවත් නමක් </span> </p>
+            <p>Mr.ChemistrY - <span style='font-family: "Noto Sans Sinhala"; font-weight: bold;'> වෙනස්ම රහකට </span> ChemistrY </p>
         </div>
     </div>
 

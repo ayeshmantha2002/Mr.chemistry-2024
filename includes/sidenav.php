@@ -41,7 +41,7 @@ if (isset($_SESSION['ID'])) {
         if (isset($_SESSION['ID'])) {
             echo '<div class="myDetailsMin">
                         <a class="profilNav"><p><img src="admin/students/' . $userPic . '" alt="profile pic"></p></a>
-                        <p>User ID :' . " " . $_SESSION['ID'] . '</p>
+                        <p>User ID :' . " " . $_SESSION['userID_Name'] . '</p>
                         <p>' . $firstName . " " . $lastName . '</p>
                         <p style="font-size: 12px;">' . $activeSatus . '</p>
                         <p><a href="logout.php">Logout <i class="fa-solid fa-right-from-bracket"></i></a></p>

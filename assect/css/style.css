@@ -364,7 +364,7 @@ body {
 .rankPic {
   width: 100%;
   display: grid;
-  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
+  grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
   overflow: hidden;
   overflow-x: scroll;
 }
@@ -2920,10 +2920,6 @@ td {
     width: 100%;
     margin: 0;
     z-index: 2;
-  }
-
-  .alUser::-webkit-scrollbar-thumb {
-    display: block;
   }
 
   .pureSylabus,

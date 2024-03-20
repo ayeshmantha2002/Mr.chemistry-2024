@@ -32,7 +32,7 @@ $homework_result = mysqli_query($connection, $homework);
 if (isset($_GET['delete'])) {
     $id = mysqli_real_escape_string($connection, $_GET['delete']);
     $name = mysqli_real_escape_string($connection, $_GET['name']);
-    $delet_Item = "DELETE FROM `homework` WHERE ID={$id} AND `File_Name` = '{$name}' LIMIT 1";
+    $delet_Item = "DELETE FROM `homework` WHERE `ID`='{$id}' AND `File_Name` = '{$name}' LIMIT 1";
     $delet_Item_result = mysqli_query($connection, $delet_Item);
 
     if ($delet_Item_result) {

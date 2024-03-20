@@ -7,6 +7,7 @@ $selectClass    =   "";
 $First_name =   "";
 $Last_name  =   "";
 $E_mail =   "";
+$userName =   "";
 $Password   =   "";
 $ConPassword    =   "";
 
@@ -19,6 +20,7 @@ if (isset($_POST['submit'])) {
     $First_name =   mysqli_real_escape_string($connection, $_POST['firstName']);
     $Last_name =   mysqli_real_escape_string($connection, $_POST['lastName']);
     $E_mail =   mysqli_real_escape_string($connection, $_POST['email']);
+    $userName =   mysqli_real_escape_string($connection, $_POST['userName']);
     $Password =   mysqli_real_escape_string($connection, $_POST['password']);
     $ConPassword =   mysqli_real_escape_string($connection, $_POST['confirmPassword']);
     $Class =   mysqli_real_escape_string($connection, $_POST['class']);
@@ -37,16 +39,16 @@ if (isset($_POST['submit'])) {
     $Mail_verification = sha1($E_mail . time());
     $Mail_verification_URL  =   "https://mrchemistry.lk/verify.php?code=" . $Mail_verification;
 
-    $Check  =   "SELECT * FROM tbl_register WHERE E_mail = '{$E_mail}' LIMIT 1";
+    $Check  =   "SELECT * FROM tbl_register WHERE E_mail = '{$E_mail}' OR userName = '{$E_mail}' LIMIT 1";
     $CheckResult =   mysqli_query($connection, $Check);
 
     if ($CheckResult) {
         if (mysqli_num_rows($CheckResult) == 1) {
-            $alrady =   "The email address already exists";
+            $alrady =   "The email or User ID address already exists";
         } else {
             if ($Password == $ConPassword) {
 
-                $Insert =   "INSERT INTO tbl_register (`First_name` , `Last_name` , `E_mail` , `Password` , `Class` , `Category` , `Mail_verification` , `Is_Active` , `Confirm_user` , `Pro_pic` , `Mood`) VALUE ('{$First_name}','{$Last_name}','{$E_mail}','{$HashPassword}','{$Class}','{$Category}','{$Mail_verification}', 0 , 3 , 'user.png' , 'light')";
+                $Insert =   "INSERT INTO tbl_register (`First_name` , `Last_name` , `E_mail` , `userName` , `Password` , `Class` , `Category` , `Mail_verification` , `Is_Active` , `Confirm_user` , `Pro_pic` , `Mood`) VALUE ('{$First_name}','{$Last_name}','{$E_mail}','{$userName}','{$HashPassword}','{$Class}','{$Category}','{$Mail_verification}', 0 , 3 , 'user.png' , 'light')";
                 $InsertResult   =   mysqli_query($connection, $Insert);
 
                 $to =   $E_mail;
@@ -142,7 +144,7 @@ if (isset($_POST['submit'])) {
             <div class="lable">
                 <div class="lableAling">
                     <h2> Register </h2>
-                    <p>Mr.ChemistrY - Chemistry <span style='font-family: "Noto Sans Sinhala"; font-weight: bold;'> වලට තවත් නමක් </span> </p>
+                    <p>Mr.ChemistrY - <span style='font-family: "Noto Sans Sinhala"; font-weight: bold;'> වෙනස්ම රහකට </span> ChemistrY </p>
                 </div>
             </div>
             <div class="alinpage">
@@ -161,6 +163,7 @@ if (isset($_POST['submit'])) {
                             <input type="text" placeholder="Last Name" name="lastName" value="<?php echo $Last_name ?>" required>
                         </div>
                         <input type="email" name="email" id="email" placeholder="E-mail Address" value="<?php echo $E_mail ?>" required>
+                        <input type="text" name="userName" id="userName" placeholder="User ID" value="<?php echo $userName ?>" required>
                         <div class="sutdentDetails">
                             <input type="password" placeholder="Password" name="password" value="<?php echo $Password ?>" required minlength="4">
                             <input type="password" placeholder="Confirm Password" name="confirmPassword" value="<?php echo $ConPassword ?>" required minlength="4">
