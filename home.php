@@ -96,6 +96,14 @@ $banner_result = mysqli_query($connection, $banner);
                 <a href="paper-discussions" onclick="loadingEffect()">
                     <div class="first">
                         <h3>Paper Discussions</h3>
+                        <img src="assect/img/content/paper-video.jpg" alt="video class">
+                    </div>
+                </a>
+            </div>
+            <div class="list">
+                <a href="marking" onclick="loadingEffect()">
+                    <div class="first">
+                        <h3> Paper marking </h3>
                         <img src="assect/img/content/discution.jpg" alt="paper discution">
                     </div>
                 </a>
