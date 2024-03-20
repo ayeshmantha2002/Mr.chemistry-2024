@@ -1,0 +1,212 @@
+:root {
+  --text-blue: #00a088;
+  --main-tow: #00e7c4;
+  --text-color: #fff;
+  --header: white;
+  --banner-outlin: #fff;
+  --line-out: darkgray;
+  --shadow: #00000030;
+  --background-color: #e6e6e6;
+  --glass: #ffffff33;
+  --glass-out: #ffffff66;
+  --dark: black;
+}
+
+.contactAlinbox {
+  width: 95%;
+  box-sizing: border-box;
+  padding: 10px;
+  border-radius: 8px;
+  background-color: var(--glass);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 0 20px var(--shadow);
+  margin: 20px auto;
+  transform: translateY(-75px);
+}
+
+.contactFrom {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  justify-content: center;
+  align-items: center;
+}
+
+.contactAddressAlin {
+  max-width: 267.5px;
+  box-sizing: border-box;
+  margin: auto;
+}
+
+.contactAddressAlin ul li {
+  list-style: none;
+  display: flex;
+  align-items: flex-start;
+  box-sizing: border-box;
+}
+
+.contactAddressAlin ul li span {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+.contactAddressAlin ul li i {
+  padding: 10px;
+  color: #fff;
+  background-color: var(--text-blue);
+  right: 20px;
+  top: 10px;
+  position: relative;
+  border-radius: 10%;
+}
+
+.massageOption {
+  width: 150px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: auto;
+  margin-bottom: 20px;
+}
+
+.massageOption div {
+  text-align: center;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+.massageOption i {
+  font-size: 25px;
+}
+
+#whatsapp {
+  color: #4cd480;
+}
+
+.form {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+}
+
+.form form {
+  background-color: #fff;
+  max-width: 350px;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 0 20px var(--shadow);
+  margin: auto;
+  text-align: center;
+}
+
+.form form img {
+  width: 100px;
+  text-align: center;
+}
+
+.form form input,
+.form form textarea {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  outline: none;
+  border: 1px solid lightgray;
+  margin-bottom: 10px;
+  border-radius: 8px;
+}
+
+.form form button {
+  width: 100%;
+  padding: 10px;
+  box-sizing: border-box;
+  border: none;
+  outline: none;
+  border-radius: 8px;
+  color: #fff;
+  cursor: pointer;
+}
+
+.form form button:hover {
+  filter: contrast(150%);
+}
+
+.gmail {
+  display: none;
+}
+
+.gmail form {
+  border-left: 3px solid blue;
+  border-top: 3px solid red;
+  border-right: 3px solid rgb(255, 221, 0);
+  border-bottom: 3px solid green;
+}
+
+.gmail form button {
+  background-color: blue;
+}
+
+.whatsapp form button {
+  background-color: #4cd480;
+}
+
+.whatsapp form {
+  border: 3px solid #4cd480;
+}
+
+.requestAling {
+  width: 95%;
+  box-sizing: border-box;
+  background-color: var(--glass);
+  border-radius: 8px;
+  box-shadow: 0 0 20px var(--shadow);
+  margin: 30px auto;
+  padding: 10px;
+}
+
+.requestAling h3 {
+  text-align: center;
+  padding-bottom: 10px;
+}
+
+.request {
+  width: 100%;
+  border-radius: 8px;
+  box-sizing: border-box;
+  justify-content: center;
+  align-items: center;
+  background-color: var(--header);
+}
+
+.request table {
+  width: 100%;
+  margin: auto;
+  text-align: center;
+}
+
+.request table th,
+td {
+  padding: 5px 0;
+  border-collapse: collapse;
+  border-bottom: 1px solid lightgray;
+}
+
+@media screen and (max-width: 800px) {
+  .contactFrom {
+    grid-template-columns: 1fr;
+  }
+
+  .form {
+    padding: 0;
+  }
+
+  .contactAddress {
+    margin-bottom: 40px;
+  }
+
+  .form form {
+    max-width: 100%;
+  }
+
+  .request table {
+    font-size: 12px;
+  }
+}

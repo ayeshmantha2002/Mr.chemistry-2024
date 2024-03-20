@@ -1,0 +1,301 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,200;0,400;1,500&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: #00000000;
+  transition: 0.4s;
+}
+
+body {
+  font-family: Poppins;
+}
+
+:root {
+  --text-blue: #00a088;
+  --main-tow: #00e7c4;
+  --text-color: #fff;
+  --header: white;
+  --banner-outlin: #fff;
+  --line-out: darkgray;
+  --shadow: #00000030;
+  --background-color: #e6e6e6;
+  --glass: #ffffff33;
+  --glass-out: #ffffff66;
+  --dark: black;
+}
+
+.content {
+  background-image: url(../img/content/background.jpg);
+  height: 100vh;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+}
+
+.alinpage {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.detailsreg {
+  display: grid;
+  grid-template-columns: 4fr 1fr;
+  justify-content: center;
+  align-items: center;
+  padding: 30px;
+}
+
+.detailsreg h1 {
+  font-size: 50px;
+  font-weight: 900;
+  line-height: 60px;
+  font-family: sans-serif;
+  color: black;
+  margin: auto;
+}
+
+.num {
+  margin-left: 50px;
+  transform: translateY(-70px);
+}
+
+.detailsreg h1 span {
+  font-size: 70px;
+  color: var(--text-blue);
+}
+
+.detailsreg i {
+  width: 100px;
+  text-align: center;
+  font-size: 50px;
+  cursor: pointer;
+}
+
+.register {
+  max-width: 500px;
+  margin: auto;
+  background-color: var(--glass);
+  backdrop-filter: blur(10px);
+  border: 2px solid var(--glass-out);
+  border-right: 1px solid var(--glass);
+  border-bottom: 1px solid var(--glass);
+  border-radius: 8px;
+  position: relative;
+  padding: 20px;
+  transform: translateY(-50px);
+  box-shadow: 2px 5px 10px var(--shadow);
+}
+
+.register form {
+  width: 95%;
+  margin: auto;
+  position: relative;
+  box-sizing: border-box;
+}
+
+.contct {
+  width: 100%;
+  display: grid;
+  justify-content: center;
+  padding: 10px;
+  box-sizing: border-box;
+  text-align: center;
+  margin: auto;
+  grid-column-start: 1;
+  grid-column-end: 3;
+}
+
+.contct li {
+  list-style: none;
+  display: inline;
+  margin: 0 15px;
+}
+
+.contct i {
+  font-size: 50px;
+  background-color: #fff;
+  padding: 2px;
+  border-radius: 50%;
+  box-shadow: 2px 5px 10px var(--shadow);
+}
+
+.contct a {
+  font-weight: bold;
+  text-decoration: none;
+  color: var(--text-blue);
+}
+
+.sutdentDetails {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+}
+
+.sutdentDetails input:nth-child(1) {
+  margin-right: 5px;
+}
+
+.sutdentDetails input:nth-child(2) {
+  margin-left: 5px;
+}
+
+.space {
+  margin-top: 20px;
+}
+
+.register form input {
+  width: 100%;
+  box-sizing: border-box;
+  padding: 10px;
+  margin-bottom: 15px;
+  outline: none;
+  border: none;
+  border-bottom: 1px solid var(--glass-out);
+  border-radius: 8px;
+}
+
+.register form textarea {
+  width: 100%;
+  height: 200px;
+  box-sizing: border-box;
+  padding: 10px;
+  margin-bottom: 15px;
+  outline: none;
+  border: none;
+  border-bottom: 1px solid var(--glass-out);
+  border-radius: 8px;
+}
+
+.register form input[type="submit"] {
+  background-color: var(--text-blue);
+  margin-top: 20px;
+  color: var(--banner-outlin);
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.register form input[type="submit"]:hover {
+  background-color: #000;
+}
+
+.register form label {
+  cursor: pointer;
+  font-size: 12px;
+}
+
+#show {
+  width: auto;
+  margin-left: 5px;
+}
+
+#section {
+  width: 100%;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  font-size: 14px;
+}
+
+#section input {
+  width: 30px;
+  margin: 0;
+  margin-top: 20px;
+}
+
+.terms {
+  transform: translateY(18px);
+  margin: 0;
+  padding: 0;
+}
+
+.terms a {
+  text-decoration: none;
+  color: var(--text-blue);
+  font-size: 13px;
+}
+
+#terms {
+  width: 30px;
+  margin: 0;
+}
+
+.sutdentDetails a {
+  text-decoration: none;
+  color: var(--text-blue);
+}
+
+.sutdentDetails a:hover {
+  color: var(--dark);
+  font-weight: bold;
+}
+
+.register form select {
+  width: 100%;
+  padding: 10px;
+  border-radius: 8px;
+  outline: none;
+}
+
+.error {
+  text-align: center;
+  color: red;
+  font-weight: bold;
+  margin-bottom: 15px;
+}
+
+.error span {
+  color: lime;
+}
+
+.sideNav {
+  width: 0;
+}
+
+.resend {
+  position: relative;
+  transform: translateY(10px);
+}
+
+.resend a {
+  border: none;
+  text-decoration: underline;
+}
+
+.resend a:hover {
+  background-color: transparent;
+  color: var(--main-tow);
+}
+
+@media screen and (max-width: 800px) {
+  .alinpage {
+    grid-template-columns: 1fr;
+  }
+
+  .register form textarea {
+    height: 100px;
+  }
+
+  .register {
+    max-width: 80%;
+    padding: 10px;
+  }
+
+  .detailsreg {
+    display: none;
+  }
+
+  #upNav {
+    background: linear-gradient(to right, #fff, #fff);
+  }
+  #section {
+    display: block;
+  }
+  #section input {
+    margin-top: 10px;
+  }
+  #section p:nth-child(1) {
+    margin-top: 5px;
+  }
+}
