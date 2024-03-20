@@ -2922,10 +2922,6 @@ td {
     z-index: 2;
   }
 
-  .alUser::-webkit-scrollbar-thumb {
-    display: block;
-  }
-
   .pureSylabus,
   .applideSylabus {
     width: 100%;
