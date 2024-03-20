@@ -121,7 +121,9 @@ if (isset($_POST['add'])) {
                 ?>
                 <a onclick='loadinEffect()' href="manage-documents.php?Category=1">Model Papers</a>
                 <a onclick='loadinEffect()' href="manage-documents.php?Category=2">Tutes</a>
+                <a onclick='loadinEffect()' href="manage-documents.php?Category=3">Class Mate Paper Marking </a>
             </div>
+            <br>
             <div class="full">
                 <a id="add-btn" href="#add-docs"> Add Documents </a>
             </div>
@@ -150,6 +152,7 @@ if (isset($_POST['add'])) {
                         <option value="">Choose</option>
                         <option value="1">Modle Paper</option>
                         <option value="2">Tute</option>
+                        <option value="3">Class Mate Paper Marking</option>
                     </select>
                 </p>
                 <p>
