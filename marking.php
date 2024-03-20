@@ -19,7 +19,7 @@ if (!isset($_SESSION['ID'])) {
                 $search = $searchID;
                 $modle_paper = "SELECT * FROM `modle_papers_&_tutes` WHERE (`Title` LIKE '%{$searchID}%' OR `File_name` LIKE '%{$searchID}%' OR `Date_Time` LIKE '%{$searchID}%') AND `Class` = {$_SESSION['Class']} AND `Category` = 3 AND `Status` = 1";
             } else {
-                $modle_paper = "SELECT * FROM `modle_papers_&_tutes` WHERE `Class` IN(1 , {$_SESSION['Class']}) AND `Category` = 1 AND `Status` = 1";
+                $modle_paper = "SELECT * FROM `modle_papers_&_tutes` WHERE `Class` IN(1 , {$_SESSION['Class']}) AND `Category` = 3 AND `Status` = 1";
             }
             $modle_paper_result = mysqli_query($connection, $modle_paper);
         }
