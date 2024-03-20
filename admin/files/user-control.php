@@ -65,9 +65,9 @@ if (isset($_GET['user'])) {
         // status update
         if (isset($_GET['status'])) {
             if ($_GET['status'] == "active") {
-                $update = "UPDATE tbl_register SET `Confirm_user` = 1 WHERE `userName` = {$ID}";
+                $update = "UPDATE tbl_register SET `Confirm_user` = 1 WHERE `userName` = '{$ID}'";
             } elseif ($_GET['status'] == "suspend") {
-                $update = "UPDATE tbl_register SET `Confirm_user` = 2 WHERE `userName` = {$ID}";
+                $update = "UPDATE tbl_register SET `Confirm_user` = 2 WHERE `userName` = '{$ID}'";
             }
 
             $update_result = mysqli_query($connection, $update);

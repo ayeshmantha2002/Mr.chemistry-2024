@@ -63,7 +63,7 @@ if (isset($_COOKIE['userPasswordMRMATHS'])) {
                     header("location: login.php?verify=resnd_mail&verify_code=$verify_code");
                 }
             } else {
-                $invalid    =   "Invalid email address or password";
+                $invalid    =   "Invalid email / username address or password";
             }
         }
     }
