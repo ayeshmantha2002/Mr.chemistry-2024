@@ -92,7 +92,7 @@ if (isset($_SESSION['ID'])) {
 
                 <div class="premium fa-bounce" style="background-color: lightyellow; box-shadow: 0 0 10px lightyellow;">
                     <h2> Special </h2>
-                    <li> Admin APP + Desktop APP + Android APP + Play Store + [ Lifetime update ] <span> 35000/= </span></li>
+                    <li> Admin APP + Ai calculator + Android APP + Play Store + [ Lifetime update ] <span> 38000/= </span></li>
                 </div>
                 <br>
 
