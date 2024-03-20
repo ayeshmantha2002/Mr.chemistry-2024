@@ -1,0 +1,21 @@
+RewriteEngine On
+
+RewriteRule ^index$ index.php [NC,L]
+RewriteRule ^contact$ contact.php [NC,L]
+RewriteRule ^map$ map.php [NC,L]
+RewriteRule ^login$ login.php [NC,L]
+RewriteRule ^register$ register.php [NC,L]
+RewriteRule ^update$ update.php [NC,L]
+RewriteRule ^policis$ policis.php [NC,L]
+RewriteRule ^App$ App.php [NC,L]
+RewriteRule ^ai$ ai.php [NC,L]
+RewriteRule ^modle-papers$ modle-papers.php [NC,L]
+RewriteRule ^video-classes$ video-classes.php [NC,L]
+RewriteRule ^paper-discussions$ paper-discussions.php [NC,L]
+RewriteRule ^tutes$ tutes.php [NC,L]
+
+# Disabling Directory Browse
+Options -Indexes
+
+# Custom Error Page
+ErrorDocument 404 /404.php
