@@ -1,7 +1,7 @@
 <?php
 include "../../includes/connection.php";
 if (isset($_SESSION['ID'])) {
-    if ($_SESSION['ID'] >= 4) {
+    if ($_SESSION['ID'] >= 3) {
         header("location: ../../index");
     }
 } else {
@@ -22,11 +22,11 @@ if (isset($_GET['user'])) {
     if ($userID < 0) {
         header("location: manage-student.php");
     }
-    $user_details = "SELECT * FROM tbl_register WHERE `ID` = {$userID}";
+    $user_details = "SELECT * FROM tbl_register WHERE `userName` = '{$userID}'";
     $user_details_result = mysqli_query($connection, $user_details);
     if (mysqli_num_rows($user_details_result) == 1) {
         $details = mysqli_fetch_assoc($user_details_result);
-        $ID = $details['ID'];
+        $ID = $details['userName'];
         $First_name = $details['First_name'];
         $Last_name = $details['Last_name'];
         $E_mail = $details['E_mail'];
@@ -65,9 +65,9 @@ if (isset($_GET['user'])) {
         // status update
         if (isset($_GET['status'])) {
             if ($_GET['status'] == "active") {
-                $update = "UPDATE tbl_register SET `Confirm_user` = 1 WHERE ID = {$ID}";
+                $update = "UPDATE tbl_register SET `Confirm_user` = 1 WHERE `userName` = {$ID}";
             } elseif ($_GET['status'] == "suspend") {
-                $update = "UPDATE tbl_register SET `Confirm_user` = 2 WHERE ID = {$ID}";
+                $update = "UPDATE tbl_register SET `Confirm_user` = 2 WHERE `userName` = {$ID}";
             }
 
             $update_result = mysqli_query($connection, $update);
@@ -78,12 +78,13 @@ if (isset($_GET['user'])) {
 
         // update student details
         if (isset($_POST['update'])) {
+            $UP_userName = mysqli_real_escape_string($connection, $_POST['userName']);
             $UP_First_name = ucfirst(mysqli_real_escape_string($connection, $_POST['First_name']));
             $UP_Last_name = ucfirst(mysqli_real_escape_string($connection, $_POST['Last_name']));
             $UP_Class = mysqli_real_escape_string($connection, $_POST['Class']);
             $UP_cate = mysqli_real_escape_string($connection, $_POST['cate']);
 
-            $studentUpdate = "UPDATE `tbl_register` SET `First_name` = '{$UP_First_name}', `Last_name` = '{$UP_Last_name}', `Class` = {$UP_Class}, `Category` = '{$UP_cate}' WHERE `ID` = {$userID}";
+            $studentUpdate = "UPDATE `tbl_register` SET `First_name` = '{$UP_First_name}', `Last_name` = '{$UP_Last_name}', `userName` = '{$UP_userName}', `Class` = {$UP_Class}, `Category` = '{$UP_cate}' WHERE `userName` = '{$userID}'";
             $studentUpdate_result = mysqli_query($connection, $studentUpdate);
 
             if ($studentUpdate_result) {
@@ -96,7 +97,7 @@ if (isset($_GET['user'])) {
             $UP_pass = mysqli_real_escape_string($connection, $_POST['new_pass']);
             $hasPass = sha1($UP_pass);
 
-            $studentUpdatePass = "UPDATE `tbl_register` SET `Password` = '{$hasPass}' WHERE `ID` = {$userID}";
+            $studentUpdatePass = "UPDATE `tbl_register` SET `Password` = '{$hasPass}' WHERE `userName` = '{$userID}'";
             $studentUpdatePass_result = mysqli_query($connection, $studentUpdatePass);
 
             if ($studentUpdatePass_result) {
@@ -175,7 +176,7 @@ if (isset($_GET['user'])) {
 
             <!-- update form  -->
             <form method="post" id="form">
-                <p> <b>User ID : </b> <input type="number" name="ID" value="<?php echo $ID; ?>" readonly> </p>
+                <p> <b>User ID : </b> <input type="text" name="userName" value="<?php echo $ID; ?>"> </p>
                 <p> <b>First Name : </b> <input type="text" name="First_name" value="<?php echo $First_name; ?>" required> </p>
                 <p> <b>Last Name : </b> <input type="text" name="Last_name" value="<?php echo $Last_name; ?>" required> </p>
                 <p> <b>E-mail : </b> <input type="text" value="<?php echo $E_mail; ?>" readonly> </p>

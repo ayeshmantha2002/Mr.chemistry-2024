@@ -422,7 +422,7 @@ if (isset($_SESSION['ID'])) {
                         <label id="uploadProgress"> Uploading... <i class="fa-solid fa-rotate fa-spin"></i></label>
 
                         <br>
-                        <p>User ID:<input type="text" placeholder="<?php echo $_SESSION['ID']; ?>" readonly></p>
+                        <p>User ID:<input type="text" placeholder="<?php echo $_SESSION['userID_Name']; ?>" readonly></p>
                         <p>First Name:<input name="First_name" type="text" value="<?php echo $First_name; ?>"></p>
                         <p>Last Name:<input name="Last_name" type="text" value="<?php echo $Last_name; ?>"></p>
                         <p>E-mail:<input type="text" placeholder="<?php echo $_SESSION['E_mail']; ?>" readonly></p>

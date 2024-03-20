@@ -19,7 +19,7 @@ if (isset($_COOKIE['ALyear'])) {
 // search user for update result
 if (isset($_GET['searchUser'])) {
     $user = mysqli_real_escape_string($connection, $_GET['searchUser']);
-    $user = "SELECT * FROM tbl_register WHERE (`ID` LIKE '%{$user}%' OR `First_name` LIKE '%{$user}%' OR `Last_name` LIKE '%{$user}%') AND `Confirm_user` = 1";
+    $user = "SELECT * FROM tbl_register WHERE (`userName` LIKE '%{$user}%' OR `First_name` LIKE '%{$user}%' OR `Last_name` LIKE '%{$user}%') AND `Confirm_user` = 1";
     $user_result = mysqli_query($connection, $user);
 } else {
     $user_result = "";
@@ -56,7 +56,7 @@ if (isset($_POST['submit'])) {
     $check_user_result = mysqli_query($connection, $check_user);
 
     if (mysqli_num_rows($check_user_result) == 0) {
-        $insert_AL = "INSERT INTO al_result (`User_ID`, `Name`, `Year`, `combinde_Result`, `physics_Result`, `chemisty_Result`, `Index_number`, `img`, `Status`) VALUE ({$inert_id}, '{$inert_name}', {$update_year}, '{$update_maths}', '{$update_physics}', '{$update_chemistry}', {$update_index}, '{$inert_img}', 1)";
+        $insert_AL = "INSERT INTO al_result (`User_ID`, `Name`, `Year`, `combinde_Result`, `physics_Result`, `chemisty_Result`, `Index_number`, `img`, `Status`) VALUE ('{$inert_id}', '{$inert_name}', {$update_year}, '{$update_maths}', '{$update_physics}', '{$update_chemistry}', {$update_index}, '{$inert_img}', 1)";
         $insert_AL_result = mysqli_query($connection, $insert_AL);
 
         if ($insert_AL_result) {
@@ -112,14 +112,14 @@ if (isset($_POST['submit'])) {
                 if (mysqli_num_rows($user_result) > 1) {
                     echo "<ul>";
                     while ($users = mysqli_fetch_assoc($user_result)) {
-                        $user_id = $users['ID'];
+                        $user_id = $users['userName'];
                         $user_name = $users['First_name'] . " " . $users['Last_name'];
                         echo "<a href='al-result.php?searchUser={$user_id}' onclick='loadinEffect()'> <li>{$user_id} - {$user_name} </li></a>";
                     }
                     echo "</ul>";
                 } elseif (mysqli_num_rows($user_result) == 1) {
                     $users = mysqli_fetch_assoc($user_result);
-                    $id = $users['ID'];
+                    $id = $users['userName'];
                     $Full_name = $users['First_name'] . " " . $users['Last_name'];
                     $Pro_pic = $users['Pro_pic'];
 

@@ -184,7 +184,7 @@ if (isset($_POST['remove'])) {
                         </div></a>
                     </div>
                     <div class="myDetails">' .
-            '<p><b>USER ID:</b>' . ' ' . $_SESSION['ID'] . '</p>
+            '<p><b>USER ID:</b>' . ' ' . $_SESSION['userID_Name'] . '</p>
                     <p><b>Name :</b>' . ' ' . $First_name . " " . $Last_name . '</p>
                     <p><b>Class:</b>' . ' ' . $Class . ' ' . $Category . '</p>
                     <p><b>Email:</b>' . ' ' . $_SESSION['E_mail'] . '</p>
@@ -284,8 +284,8 @@ if (isset($_POST['remove'])) {
 
     <!-- homework list  -->
     <?php
-    if (isset($_SESSION['ID'])) {
-        $homework = "SELECT * FROM homework WHERE User_ID = {$_SESSION['ID']} ORDER BY ID DESC LIMIT 2";
+    if (isset($_SESSION['userID_Name'])) {
+        $homework = "SELECT * FROM homework WHERE User_ID = '{$_SESSION['userID_Name']}' ORDER BY ID DESC LIMIT 2";
         $homework_result = mysqli_query($connection, $homework);
         if (mysqli_num_rows($homework_result) > 0) {
             echo "<div class='homework-list'>";
@@ -314,8 +314,8 @@ if (isset($_POST['remove'])) {
 
     <div class="Allhomework">
         <?php
-        if (isset($_SESSION['ID'])) {
-            $homework2 = "SELECT * FROM homework WHERE User_ID = {$_SESSION['ID']} ORDER BY ID DESC";
+        if (isset($_SESSION['userID_Name'])) {
+            $homework2 = "SELECT * FROM homework WHERE User_ID = '{$_SESSION['userID_Name']}' ORDER BY ID DESC";
             $homework2_result = mysqli_query($connection, $homework2);
 
             if (mysqli_num_rows($homework2_result) > 0) {
@@ -348,8 +348,8 @@ if (isset($_POST['remove'])) {
     <!-- All paper score list -->
     <div class="myPaperAling">
         <?php
-        if (isset($_SESSION['ID'])) {
-            $papers = "SELECT * FROM score WHERE User_ID = {$_SESSION['ID']} ORDER BY Test";
+        if (isset($_SESSION['userID_Name'])) {
+            $papers = "SELECT * FROM score WHERE User_ID = '{$_SESSION['userID_Name']}' ORDER BY Test";
             $papersQuery    =   mysqli_query($connection, $papers);
             $paperTable = '<table>';
             $paperTable .= '<tbody>';

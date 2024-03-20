@@ -16,10 +16,10 @@ if (isset($_GET['user'])) {
     $userID = mysqli_real_escape_string($connection, $_GET['user']);
 
     // filter score 
-    $scoreList = "SELECT * FROM score WHERE User_ID = {$userID} ORDER BY ID DESC";
+    $scoreList = "SELECT * FROM score WHERE User_ID = '{$userID}' ORDER BY ID DESC";
     $scoreList_result = mysqli_query($connection, $scoreList);
 
-    $user = "SELECT * FROM tbl_register WHERE ID = {$userID}";
+    $user = "SELECT * FROM tbl_register WHERE userName = '{$userID}'";
     $user_result = mysqli_query($connection, $user);
 
     if (mysqli_num_rows($user_result) > 0) {
@@ -47,10 +47,10 @@ if (isset($_GET['user'])) {
             $copied = mysqli_real_escape_string($connection, $_POST['copied']);
             $paperNumber = mysqli_real_escape_string($connection, $_POST['paper']);
 
-            $check = "SELECT * FROM score WHERE User_ID = {$userID} AND Test = '{$paperNumber}'";
+            $check = "SELECT * FROM score WHERE User_ID = '{$userID}' AND Test = '{$paperNumber}'";
             $check_result = mysqli_query($connection, $check);
             if (mysqli_num_rows($check_result) !== 1) {
-                $insert = "INSERT INTO score (`User_ID`, `Full_name`, `Class`, `Category`, `Test`, `Score`, `Status`, `Average`, `Pro_pic`) VALUE ({$userID}, '{$name}', {$class}, '{$Category}', '{$paperNumber}', '{$score}', {$copied}, 0, '{$Pro_pic}')";
+                $insert = "INSERT INTO score (`User_ID`, `Full_name`, `Class`, `Category`, `Test`, `Score`, `Status`, `Average`, `Pro_pic`) VALUE ('{$userID}', '{$name}', {$class}, '{$Category}', '{$paperNumber}', '{$score}', {$copied}, 0, '{$Pro_pic}')";
                 $insert_result = mysqli_query($connection, $insert);
 
                 header("location: avarage.php?user={$userID}&score={$score}&class={$class}&test={$paperNumber}");

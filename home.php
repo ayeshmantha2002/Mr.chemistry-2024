@@ -11,7 +11,7 @@ if (isset($_SESSION['ID'])) {
         if (mysqli_num_rows($result) == 1) {
             $verify =   mysqli_fetch_assoc($result);
             $verifyUser =   $verify['Confirm_user'];
-            $ID =   $verify['ID'];
+            $ID =   $verify['userName'];
             $First_name =   $verify['First_name'];
             $Last_name  =   $verify['Last_name'];
             $E_mail     =   $verify['E_mail'];

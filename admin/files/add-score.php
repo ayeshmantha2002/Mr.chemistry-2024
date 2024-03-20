@@ -19,7 +19,7 @@ if (isset($_GET['class'])) {
 // fetch students details
 if (isset($_POST['studentID'])) {
     $studentID = mysqli_real_escape_string($connection, $_POST['studentID']);
-    $SearchCatagory = "SELECT * FROM tbl_register WHERE (`ID` LIKE '%{$studentID}%' OR `First_name` LIKE '%{$studentID}%' OR `Last_name` LIKE '%{$studentID}%') AND Confirm_user = 1";
+    $SearchCatagory = "SELECT * FROM tbl_register WHERE (`userName` LIKE '%{$studentID}%' OR `First_name` LIKE '%{$studentID}%' OR `Last_name` LIKE '%{$studentID}%') AND Confirm_user = 1";
 } elseif (isset($_GET['class'])) {
     $Category = "class={$_GET['class']}";
     $studentclass = mysqli_real_escape_string($connection, $_GET['class']);
@@ -84,7 +84,7 @@ $SearchCatagory_result = mysqli_query($connection, $SearchCatagory);
                 if ($SearchCatagory_result) {
                     if (mysqli_num_rows($SearchCatagory_result) > 0) {
                         while ($users = mysqli_fetch_assoc($SearchCatagory_result)) {
-                            $user_id = $users['ID'];
+                            $user_id = $users['userName'];
                             $user_first = $users['First_name'];
                             $user_last = $users['Last_name'];
                             $user_Class = $users['Class'];
