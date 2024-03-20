@@ -2,7 +2,7 @@
 <div class="lable">
     <div class="lableAling">
         <h2> Mr.ChemistrY </h2>
-        <p>Mr.ChemistrY - Chemistry <span style='font-family: "Noto Sans Sinhala"; font-weight: bold;'> වලට තවත් නමක් </span> </p>
+        <p>Mr.ChemistrY - <span style='font-family: "Noto Sans Sinhala"; font-weight: bold;'> වෙනස්ම රහකට </span> ChemistrY </p>
     </div>
 </div>
 <?php

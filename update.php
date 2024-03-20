@@ -369,7 +369,7 @@ if (isset($_SESSION['ID'])) {
                 font-size: 25px;
                 transform: translateY(4px);
                 cursor: pointer;"></i> Mr. <span id="maths"> ChemistrY </span> </h3>
-                <p> Chemistry <span style='font-family: "Noto Sans Sinhala"; font-weight: bold;'> වලට තවත් නමක් </span> </p>
+                <p>Mr.ChemistrY - <span style='font-family: "Noto Sans Sinhala"; font-weight: bold;'> වෙනස්ම රහකට </span> ChemistrY </p>
             </div>
             <ul <?php if (isset($_SESSION['ID'])) {
                     echo "hidden";

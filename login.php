@@ -152,8 +152,7 @@ if (isset($_COOKIE['userPasswordMRMATHS'])) {
             <div class="lable">
                 <div class="lableAling">
                     <h2> Log in </h2>
-                    <p>Mr.ChemistrY - Chemistry <span style='font-family: "Noto Sans Sinhala"; font-weight: bold;'> වලට තවත් නමක් </span> </p>
-
+                    <p>Mr.ChemistrY - <span style='font-family: "Noto Sans Sinhala"; font-weight: bold;'> වෙනස්ම රහකට </span> ChemistrY </p>
                 </div>
             </div>
             <div class="alinpage">
