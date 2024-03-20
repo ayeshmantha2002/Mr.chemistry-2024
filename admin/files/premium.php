@@ -85,6 +85,11 @@ if (isset($_SESSION['ID'])) {
                 </div>
                 <br>
 
+                <div class="premium">
+                    <li> AI calculator - <span>13200/=</span> </li>
+                </div>
+                <br>
+
                 <div class="premium fa-bounce" style="background-color: lightyellow; box-shadow: 0 0 10px lightyellow;">
                     <h2> Special </h2>
                     <li> Admin APP + Desktop APP + Android APP + Play Store + [ Lifetime update ] <span> 35000/= </span></li>
