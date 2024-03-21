@@ -69,7 +69,7 @@ if (!isset($_SESSION['ID'])) {
         <div class="content">
             <div class="eventAlin">
                 <h2> Video Classes </h2>
-                <p> Mr.ChemistrY - Chemistry </p>
+                <p>Mr.ChemistrY - <span style='font-family: "Noto Sans Sinhala"; font-weight: bold;'> වෙනස්ම රහකට </span> ChemistrY </p>
                 <div class="eventContent">
 
                     <div class="classListBack">

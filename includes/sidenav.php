@@ -94,14 +94,16 @@ if (isset($_SESSION['ID'])) {
             </li>
 
 
-            <!-- if (isset($_SESSION['ID'])) {
+            <?php
+            if (isset($_SESSION['ID'])) {
                 if ($Confirm_user == 1) {
-                    echo '<li><a href="ai.php" class="aiai" title="Mr.ChemistrY - AI">
+                    echo '<li><a href="ai" class="aiai" title="Mr.ChemistrY - AI">
                             <i class="fa-solid fa-brain"></i>
-                            AI Calculater</a>
+                            Ai Calculator</a>
                         </li>';
                 }
-            } -->
+            }
+            ?>
 
 
 

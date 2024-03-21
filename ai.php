@@ -1,5 +1,4 @@
 <?php
-header("location: index");
 include("includes/connection.php");
 if (!isset($_SESSION['ID'])) {
     header('location:index.php');
@@ -161,7 +160,7 @@ if (!isset($_SESSION['ID'])) {
     </div>
     <div class="ai" style="transform: translateY(-50px);">
         <div class="ai_aling">
-            <iframe src="https://www.mathway.com" style="width: 100%;height: 100%; border: 1px solid var(--text-blue);"></iframe>
+            <iframe src="https://www.mathway.com/chemistry" style="width: 100%;height: 100%; border: 1px solid var(--text-blue);"></iframe>
         </div>
     </div>
 </body>
