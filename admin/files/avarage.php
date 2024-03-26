@@ -2,16 +2,16 @@
 // securuty
 include "../../includes/connection.php";
 if (isset($_SESSION['ID'])) {
-    if ($_SESSION['ID'] >= 3) {
+    if ($_SESSION['ID'] >= 2) {
         header("location: ../../index");
     }
 } else {
     header("location: ../../index");
 }
 
-if (isset($_GET['score'])) {
-    $user =  mysqli_real_escape_string($connection, $_GET['user']);
-    $score = mysqli_real_escape_string($connection, $_GET['score']);
+if (isset($_GET['class'])) {
+    // $user =  mysqli_real_escape_string($connection, $_GET['user']);
+    // $score = mysqli_real_escape_string($connection, $_GET['score']);
     $class = mysqli_real_escape_string($connection, $_GET['class']);
     $test = mysqli_real_escape_string($connection, $_GET['test']);
 
@@ -34,6 +34,10 @@ if (mysqli_num_rows($avScore_result) > 0) {
     $update_av_result = mysqli_query($connection, $update_av);
 
     if ($update_av_result) {
-        header("location: add-score.php?insert=done&{$Category}");
+        if (isset($_GET['quick'])) {
+            header("location: quick-score.php?class={$class}&paper={$test}");
+        } else {
+            header("location: add-score.php?insert=done&{$Category}");
+        }
     }
 }

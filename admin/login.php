@@ -13,6 +13,7 @@ if (isset($_POST['submit'])) {
         $userFetch = mysqli_fetch_assoc($chech_result);
 
         $_SESSION['ID']    =   $userFetch['ID'];
+        $_SESSION['userID_Name']    =   $userFetch['userName'];
         $_SESSION['First_name']    =   $userFetch['First_name'];
         $_SESSION['Last_name']    =   $userFetch['Last_name'];
         $_SESSION['E_mail']    =   $userFetch['E_mail'];

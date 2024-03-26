@@ -50,6 +50,9 @@ if (!isset($_SESSION['ID'])) {
                 <p class="bar"><i class="fa-solid fa-bars-staggered fa-rotate-180"></i></p>
                 <div class="nav-align">
                     <ul>
+                        <a href="files/add-score.php" onclick='loadinEffect()'>
+                            <li> Paper Score <i class="fa-solid fa-link"></i> </li>
+                        </a>
                         <a href="files/manage-link.php" onclick='loadinEffect()'>
                             <li> Link management <i class="fa-solid fa-link"></i> </li>
                         </a>
@@ -71,17 +74,56 @@ if (!isset($_SESSION['ID'])) {
             <div class="popup class">
                 <i class="fa-solid fa-circle-xmark close" style="color: #ff0000;"></i>
                 <div class="popup-center">
-                    <div>
-                        <h2> Choose class </h2>
-                        <?php
-                        if (mysqli_num_rows($class_list_result1) > 0) {
-                            while ($class1 = mysqli_fetch_assoc($class_list_result1)) {
-                                echo "<a href='files/add-score.php?class={$class1['class']}' onclick='loadinEffect()'>{$class1['class']}</a>";
+                    <form action="files/quick-score.php" method="get">
+                        <select name="class" required>
+                            <option value=""> Choose Class </option>
+                            <?php
+                            if (mysqli_num_rows($class_list_result1) > 0) {
+                                while ($class1 = mysqli_fetch_assoc($class_list_result1)) {
+                                    echo "<option value='{$class1['class']}'> {$class1['class']} </option>";
+                                }
                             }
-                        }
-                        ?>
-                        <a href='files/add-score.php' onclick='loadinEffect()'>All</a>
-                    </div>
+                            ?>
+                        </select>
+                        <br>
+                        <br>
+                        <select name="paper" required>
+                            <option value="">Choose Paper Number</option>
+                            <option value="MP 01">MP 01</option>
+                            <option value="MP 02">MP 02</option>
+                            <option value="MP 03">MP 03</option>
+                            <option value="MP 04">MP 04</option>
+                            <option value="MP 05">MP 05</option>
+                            <option value="MP 06">MP 06</option>
+                            <option value="MP 07">MP 07</option>
+                            <option value="MP 08">MP 08</option>
+                            <option value="MP 09">MP 09</option>
+                            <option value="MP 10">MP 10</option>
+                            <option value="MP 11">MP 11</option>
+                            <option value="MP 12">MP 12</option>
+                            <option value="MP 13">MP 13</option>
+                            <option value="MP 14">MP 14</option>
+                            <option value="MP 15">MP 15</option>
+                            <option value="MP 16">MP 16</option>
+                            <option value="MP 17">MP 17</option>
+                            <option value="MP 18">MP 18</option>
+                            <option value="MP 19">MP 19</option>
+                            <option value="MP 20">MP 20</option>
+                            <option value="MP 21">MP 21</option>
+                            <option value="MP 22">MP 22</option>
+                            <option value="MP 23">MP 23</option>
+                            <option value="MP 24">MP 24</option>
+                            <option value="MP 25">MP 25</option>
+                            <option value="MP 26">MP 26</option>
+                            <option value="MP 27">MP 27</option>
+                            <option value="MP 28">MP 28</option>
+                            <option value="MP 29">MP 29</option>
+                            <option value="MP 30">MP 30</option>
+                        </select>
+                        <br>
+                        <br>
+                        <input type="submit" value="Submit">
+                    </form>
                 </div>
             </div>
 
@@ -163,7 +205,7 @@ if (!isset($_SESSION['ID'])) {
                             <div>
                                 <i class="fa-solid fa-newspaper"></i>
                             </div>
-                            <p> Paper<br>Score </p>
+                            <p> Add<br>Score </p>
                         </a>
                     </div>
                     <div class="button">
