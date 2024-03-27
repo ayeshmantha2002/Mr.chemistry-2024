@@ -17,7 +17,7 @@ if (!isset($_SESSION['ID'])) {
             if (isset($_POST['search'])) {
                 $searchID = mysqli_real_escape_string($connection, $_POST['searchID']);
                 $search = $searchID;
-                $modle_paper = "SELECT * FROM `modle_papers_&_tutes` WHERE (`Title` LIKE '%{$searchID}%' OR `File_name` LIKE '%{$searchID}%' OR `Date_Time` LIKE '%{$searchID}%') AND `Class` = {$_SESSION['Class']} AND `Category` = 1 AND `Status` = 1";
+                $modle_paper = "SELECT * FROM `modle_papers_&_tutes` WHERE (`Title` LIKE '%{$searchID}%' OR `File_name` LIKE '%{$searchID}%' OR `Date_Time` LIKE '%{$searchID}%') AND `Class` IN(1 , {$_SESSION['Class']}) AND `Category` = 1 AND `Status` = 1";
             } else {
                 $modle_paper = "SELECT * FROM `modle_papers_&_tutes` WHERE `Class` IN(1 , {$_SESSION['Class']}) AND `Category` = 1 AND `Status` = 1";
             }
@@ -81,7 +81,7 @@ if (!isset($_SESSION['ID'])) {
         <div class="content">
             <div class="lable">
                 <div class="lableAling">
-                    <h2> Class Mate Papers </h2>
+                    <h2> Modle Papers </h2>
                     <p>Mr.ChemistrY - <span style='font-family: "Noto Sans Sinhala"; font-weight: bold;'> වෙනස්ම රහකට </span> ChemistrY </p>
                 </div>
             </div>

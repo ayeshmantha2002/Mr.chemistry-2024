@@ -17,9 +17,9 @@ if (!isset($_SESSION['ID'])) {
             if (isset($_POST['search'])) {
                 $searchID = mysqli_real_escape_string($connection, $_POST['searchID']);
                 $search = $searchID;
-                $modle_paper = "SELECT * FROM `modle_papers_&_tutes` WHERE (`Title` LIKE '%{$searchID}%' OR `File_name` LIKE '%{$searchID}%' OR `Date_Time` LIKE '%{$searchID}%') AND `Class` IN(1 , {$_SESSION['Class']}) AND `Category` = 3 AND `Status` = 1";
+                $modle_paper = "SELECT * FROM `modle_papers_&_tutes` WHERE (`Title` LIKE '%{$searchID}%' OR `File_name` LIKE '%{$searchID}%' OR `Date_Time` LIKE '%{$searchID}%') AND `Class` IN(1 , {$_SESSION['Class']}) AND `Category` = 4 AND `Status` = 1";
             } else {
-                $modle_paper = "SELECT * FROM `modle_papers_&_tutes` WHERE `Class` IN(1 , {$_SESSION['Class']}) AND `Category` = 3 AND `Status` = 1";
+                $modle_paper = "SELECT * FROM `modle_papers_&_tutes` WHERE `Class` IN(1 , {$_SESSION['Class']}) AND `Category` = 4 AND `Status` = 1";
             }
             $modle_paper_result = mysqli_query($connection, $modle_paper);
         }
@@ -35,11 +35,10 @@ if (!isset($_SESSION['ID'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mr.ChemistrY - Marking</title>
+    <title>Mr.ChemistrY - ClassMate Papers</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="assect/css/contact.css">
     <link rel="stylesheet" href="assect/css/style.css">
-    <link rel="stylesheet" href="boxicons.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
     <link rel="icon" href="assect/img/icon/logo.png">
 
@@ -48,12 +47,9 @@ if (!isset($_SESSION['ID'])) {
             display: block;
         }
     </style>
-
 </head>
 
 <body>
-    <div class="blur"></div>
-
     <div class="loading" id="loader">
         <img src="assect/img/icon/New-file.gif" alt="loading">
     </div>
@@ -63,19 +59,14 @@ if (!isset($_SESSION['ID'])) {
         <div class="upNav">
             <div class="logo">
                 <h3> <i class="fa-solid fa-bars" id="navClick" style="color: var(--text-blue);
-            padding-right: 15px;
-            font-size: 25px;
-            transform: translateY(4px);
-            cursor: pointer;"></i> Mr.Chemistry<span id="maths">.lk </span> </h3>
+                padding-right: 15px;
+                font-size: 25px;
+                transform: translateY(4px);
+                cursor: pointer;"></i> Mr.Chemistry<span id="maths">.lk </span> </h3>
                 <p> NIPUN PALLIYAGURU </p>
             </div>
             <ul>
-                <li><a href="modle-papers" onclick='loadinEffect()'> MP </a></li>
-                <?php
-                if (!isset($_SESSION['ID'])) {
-                    echo '<li><a href="login"> Login </a></li>';
-                }
-                ?>
+                <li><a href="Class-Mate-Marking" onclick='loadinEffect()'> CM-Marking </a></li>
             </ul>
         </div>
     </div>
@@ -85,10 +76,11 @@ if (!isset($_SESSION['ID'])) {
         <?php
         include("includes/sidenav.php");
         ?>
+
         <div class="content">
             <div class="lable">
                 <div class="lableAling">
-                    <h2> Modle Paper Markings </h2>
+                    <h2> Class Mate Papers </h2>
                     <p>Mr.ChemistrY - <span style='font-family: "Noto Sans Sinhala"; font-weight: bold;'> වෙනස්ම රහකට </span> ChemistrY </p>
                 </div>
             </div>
@@ -110,7 +102,6 @@ if (!isset($_SESSION['ID'])) {
                     </form>
                 </div>
             </div>
-
 
             <div class="notification">
                 <?php
@@ -153,7 +144,6 @@ if (!isset($_SESSION['ID'])) {
                 }
                 ?>
             </div>
-
             <?php
             include "includes/footer.php";
             ?>
@@ -162,6 +152,7 @@ if (!isset($_SESSION['ID'])) {
             <div class="space2"></div>
         </div>
     </div>
+    <div class="blur"></div>
 
     <?php
     // bottom navigation bar
@@ -172,6 +163,7 @@ if (!isset($_SESSION['ID'])) {
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.cycle2/2.1.6/jquery.cycle2.min.js"></script>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+    <script src="assect/js/javascript.js"></script>
     <script src="assect/js/viewjs.js"></script>
     <script src="https://unpkg.com/boxicons@2.1.3/dist/boxicons.js"></script>
     <script>

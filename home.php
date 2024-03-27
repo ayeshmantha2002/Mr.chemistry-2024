@@ -94,6 +94,14 @@ $banner_result = mysqli_query($connection, $banner);
                 </a>
             </div>
             <div class="list">
+                <a href="Class-Mate" onclick="loadingEffect()">
+                    <div class="first">
+                        <h3> Class Mate Paper </h3>
+                        <img src="assect/img/content/discution.jpg" alt="paper discution">
+                    </div>
+                </a>
+            </div>
+            <div class="list">
                 <a href="video-classes" onclick="loadingEffect()">
                     <div class="first">
                         <h3>Video Class</h3>
@@ -108,18 +116,8 @@ $banner_result = mysqli_query($connection, $banner);
                         <img src="assect/img/content/paper-video.jpg" alt="video class">
                     </div>
                 </a>
-            </div>' .
-
-                        // <div class="list">
-                        //     <a href="marking" onclick="loadingEffect()">
-                        //         <div class="first">
-                        //             <h3> Paper marking </h3>
-                        //             <img src="assect/img/content/discution.jpg" alt="paper discution">
-                        //         </div>
-                        //     </a>
-                        // </div>
-
-                        '<div class="list">
+            </div>
+            <div class="list">
                 <a href="tutes" onclick="loadingEffect()">
                     <div class="first">
                         <h3>Tutes</h3>

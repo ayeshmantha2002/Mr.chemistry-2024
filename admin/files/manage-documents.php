@@ -121,7 +121,9 @@ if (isset($_POST['add'])) {
                 ?>
                 <a onclick='loadinEffect()' href="manage-documents.php?Category=1">Model Papers</a>
                 <a onclick='loadinEffect()' href="manage-documents.php?Category=2">Tutes</a>
-                <a onclick='loadinEffect()' href="manage-documents.php?Category=3">Class Mate Paper Marking </a>
+                <a onclick='loadinEffect()' href="manage-documents.php?Category=3">Modle Paper Marking </a>
+                <a onclick='loadinEffect()' href="manage-documents.php?Category=4">Class Mate Paper </a>
+                <a onclick='loadinEffect()' href="manage-documents.php?Category=5">Class Mate Paper Marking </a>
             </div>
             <br>
             <div class="full">
@@ -150,9 +152,11 @@ if (isset($_POST['add'])) {
                     Category : <br>
                     <select name="category">
                         <option value="">Choose</option>
-                        <option value="1">Modle Paper</option>
                         <option value="2">Tute</option>
-                        <option value="3">Class Mate Paper Marking</option>
+                        <option value="1">Modle Paper</option>
+                        <option value="3">Modle Paper Marking</option>
+                        <option value="4">Class Mate Paper</option>
+                        <option value="5">Class Mate Paper Marking</option>
                     </select>
                 </p>
                 <p>

@@ -14,6 +14,8 @@ RewriteRule ^video-classes$ video-classes.php [NC,L]
 RewriteRule ^paper-discussions$ paper-discussions.php [NC,L]
 RewriteRule ^tutes$ tutes.php [NC,L]
 RewriteRule ^marking$ marking.php [NC,L]
+RewriteRule ^Class-Mate$ class-mate.php [NC,L]
+RewriteRule ^Class-Mate-Marking$ Class-Mate-Marking.php [NC,L]
 
 # Disabling Directory Browse
 Options -Indexes
