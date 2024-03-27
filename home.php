@@ -76,7 +76,16 @@ $banner_result = mysqli_query($connection, $banner);
             <?php
             if (isset($_SESSION['ID'])) {
                 if ($verifyUser == 1) {
-                    echo '<div class="list">
+                    echo '
+                    <div class="list">
+                    <a href="ai" onclick="loadingEffect()">
+                        <div class="first">
+                            <h3>Ai Calculator</h3>
+                            <img src="assect/img/content/calculator.jpg" alt="video class">
+                        </div>
+                    </a>
+                </div>
+            <div class="list">
                 <a href="modle-papers" onclick="loadingEffect()">
                     <div class="first">
                         <h3>Model Paper </h3>
@@ -99,16 +108,18 @@ $banner_result = mysqli_query($connection, $banner);
                         <img src="assect/img/content/paper-video.jpg" alt="video class">
                     </div>
                 </a>
-            </div>
-            <div class="list">
-                <a href="marking" onclick="loadingEffect()">
-                    <div class="first">
-                        <h3> Paper marking </h3>
-                        <img src="assect/img/content/discution.jpg" alt="paper discution">
-                    </div>
-                </a>
-            </div>
-            <div class="list">
+            </div>' .
+
+                        // <div class="list">
+                        //     <a href="marking" onclick="loadingEffect()">
+                        //         <div class="first">
+                        //             <h3> Paper marking </h3>
+                        //             <img src="assect/img/content/discution.jpg" alt="paper discution">
+                        //         </div>
+                        //     </a>
+                        // </div>
+
+                        '<div class="list">
                 <a href="tutes" onclick="loadingEffect()">
                     <div class="first">
                         <h3>Tutes</h3>

@@ -42,6 +42,13 @@ if (!isset($_SESSION['ID'])) {
     <link rel="stylesheet" href="boxicons.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
     <link rel="icon" href="assect/img/icon/logo.png">
+
+    <style>
+        .upNav ul {
+            display: block;
+        }
+    </style>
+
 </head>
 
 <body>
@@ -63,7 +70,7 @@ if (!isset($_SESSION['ID'])) {
                 <p> NIPUN PALLIYAGURU </p>
             </div>
             <ul>
-                <li><a href="index"> Home </a></li>
+                <li><a href="modle-papers" onclick='loadinEffect()'> MP </a></li>
                 <?php
                 if (!isset($_SESSION['ID'])) {
                     echo '<li><a href="login"> Login </a></li>';
