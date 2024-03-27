@@ -1,7 +1,7 @@
 <?php
 include "../../includes/connection.php";
 if (isset($_SESSION['ID'])) {
-    if ($_SESSION['ID'] >= 4) {
+    if ($_SESSION['ID'] >= 2) {
         header("location: ../../index");
     }
 } else {
@@ -22,7 +22,7 @@ if (isset($_GET['catagory'])) {
 // fetch video details
 if (isset($_POST['videoID'])) {
     $videoID = mysqli_real_escape_string($connection, $_POST['videoID']);
-    
+
     $SearchCatagory = "SELECT * FROM `videos` WHERE (`Title` LIKE '%{$videoID}%' OR `Catagory` LIKE '%{$videoID}%' OR `Description` LIKE '%{$videoID}%')";
 } elseif (isset($_GET['vd'])) {
     $Category = "vd={$_GET['vd']}";
@@ -40,7 +40,7 @@ $SearchCatagory_result = mysqli_query($connection, $SearchCatagory);
 
 
 // insert video
-if(isset($_POST['add-video-db'])){
+if (isset($_POST['add-video-db'])) {
     $title = mysqli_real_escape_string($connection, $_POST['title']);
     $link = mysqli_real_escape_string($connection, $_POST['link']);
     $description = mysqli_real_escape_string($connection, $_POST['description']);
@@ -49,7 +49,7 @@ if(isset($_POST['add-video-db'])){
 
     $insert_video = "INSERT INTO `videos` (`Title`, `Link`, `Description`, `Catagory`, `Lesson`, `Status`) VALUE ('{$title}', '{$link}', '{$description}', '{$catagory}', {$lesson}, 1)";
     $insert_video_result = mysqli_query($connection, $insert_video);
-    if($insert_video_result){
+    if ($insert_video_result) {
         header("location: manage-videos.php?insert=done");
     } else {
         header("location: manage-videos.php?insert=error");
@@ -115,7 +115,7 @@ if(isset($_POST['add-video-db'])){
                         <input type="text" placeholder="title" name="title" required>
                     </p>
                     <p>
-                    Embed Link : <br>
+                        Embed Link : <br>
                         <textarea placeholder="Embed Video Link" name="link" required></textarea>
                     </p>
                     <p>
@@ -145,7 +145,7 @@ if(isset($_POST['add-video-db'])){
                             <option value="8">කර්මාන්ත</option>
                             <option value="9">පරිසරය</option>
                             <option value="10">විද්‍යුත් රසායනය</option>
-                            
+
                             <option value="11"> Modle Paper 01 </option>
                             <option value="12"> Modle Paper 02 </option>
                             <option value="13"> Modle Paper 03 </option>
@@ -189,7 +189,7 @@ if(isset($_POST['add-video-db'])){
             <form action="manage-videos.php" method="post">
                 <h2> Search Video </h2>
                 <p>
-                Title or Description: <br>
+                    Title or Description: <br>
                     <input name="videoID" placeholder="Title or Description" required>
                 </p>
                 <p><button type="submit" onclick='loadinEffect()'> Search </button></p>
@@ -241,8 +241,8 @@ if(isset($_POST['add-video-db'])){
         }
     }
 
-     // error message
-     if (isset($_GET['insert'])) {
+    // error message
+    if (isset($_GET['insert'])) {
         if ($_GET['insert'] == "error") {
             echo "<div class='done-message'>
             <div class='done-message-center'>
@@ -261,10 +261,10 @@ if(isset($_POST['add-video-db'])){
     </div>
     <script src="../../assect/js/jquery.min.js"></script>
     <script>
-        $(document).ready(function(){
+        $(document).ready(function() {
             var show = true;
-            $(".add-videos").click(function(){
-                if (show == true){
+            $(".add-videos").click(function() {
+                if (show == true) {
                     $("#add-videos").css("display", "block");
                     show = false;
                 } else {

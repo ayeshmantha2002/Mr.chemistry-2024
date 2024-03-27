@@ -2,7 +2,7 @@
 include "../includes/connection.php";
 if (!isset($_SESSION['ID'])) {
     header("location: ../index");
-} elseif ($_SESSION['ID'] > 3) {
+} elseif ($_SESSION['ID'] > 2) {
     header("location: ../index");
 } else {
 
