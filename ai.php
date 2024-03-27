@@ -56,15 +56,6 @@ if (!isset($_SESSION['ID'])) {
                 <li><a href="register"> Register </a></li>
                 <li><a href="login"> Login </a></li>
             </ul>
-
-            <?php
-            if (isset($_SESSION['ID'])) {
-                if ($_SESSION['ID'] <= 3) {
-                    echo '<ul><li><a href="admin/admin.php"> Admin </a></li></ul>';
-                }
-            };
-            ?>
-
         </div>
     </div>
     <div class="hero">
@@ -137,18 +128,6 @@ if (!isset($_SESSION['ID'])) {
                     ?>
                 </ul>
                 <br><br>
-                <?php
-                if (!isset($_SESSION['ID'])) {
-                    echo '<div class="sideRegister">
-                    <li class="hide"><a href="register">Register</a></li>
-                    <li class="hide"><a href="login">Log in</a></li>
-                </div>';
-                } else {
-                    if ($_SESSION['ID'] == 1 || $_SESSION['ID'] == 2 || $_SESSION['ID'] == 3) {
-                        echo '<div class="sideRegister"><ul><li><a href="admin/admin.php">Admin</a></li></ul></div>';
-                    }
-                }
-                ?>
                 <div class="space"></div>
             </div>
         </div>
