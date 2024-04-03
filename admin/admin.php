@@ -254,7 +254,7 @@ if (!isset($_SESSION['ID'])) {
                         </li>';
 
                         while ($users = mysqli_fetch_assoc($new_users_result)) {
-                            echo "<a href='files/user-control.php?user={$users['userName']}' onclick='loadinEffect()'>
+                            echo "<a href='files/user-control.php?ID={$users['ID']}&user={$users['userName']}' onclick='loadinEffect()'>
                         <li>
                             <div>{$users['userName']}</div>
                             <div>{$users['Class']}</div>

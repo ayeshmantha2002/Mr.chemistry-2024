@@ -16,7 +16,7 @@ if (isset($_GET['class'])) {
     } else {
         $Category = "class={$_GET['class']}";
         $studentclass = mysqli_real_escape_string($connection, $_GET['class']);
-        $homework = "SELECT * FROM `homework` WHERE Class = {$studentclass} ORDER BY `Status`";
+        $homework = "SELECT * FROM `homework` WHERE Class = {$studentclass} ORDER BY `Title`";
     }
 } elseif (isset($_POST['search'])) {
     $Category = "";
@@ -133,7 +133,7 @@ if (isset($_GET['status_id'])) {
                             <div id='student-details'>
                                 <p><b>Title : {$Title}</b> <br> <b>User ID :</b> {$User_ID} <br> <b>Class :</b> {$Class} <br>{$Name} <br> <b>{$Date_Time}</b></p>
                                 <p></p>
-                                <p> <a href='../homework/$File_Name' class='download-link' download> Download </a> <br> <br> <a href='home-work.php?delete={$ID}&name={$File_Name}&{$Category}' id='download-link' onclick='loadinEffect()'> Delete </a> <br></p>
+                                <p> <a href='../homework/$File_Name' class='download-link' download='{$Title}'> Download </a> <br> <br> <a href='home-work.php?delete={$ID}&name={$File_Name}&{$Category}' id='download-link' onclick='loadinEffect()'> Delete </a> <br></p>
                             </div>
                             $status_link
                         </li>

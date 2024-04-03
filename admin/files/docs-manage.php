@@ -139,7 +139,11 @@ if (isset($_GET['doc'])) {
                 <p> <b>Status : </b> {$StatusView} </p>";
                 ?>
                 <br><br>
-                <iframe src="../docs/<?php echo $File_name; ?>" frameborder="0" width="100%" height="250px"></iframe>
+                <!-- <iframe src="../docs/
+                <?php
+                // echo $File_name; 
+                ?>
+                " frameborder="0" width="100%" height="250px"></iframe> -->
             </div>
             <br><br>
 
