@@ -109,10 +109,14 @@ if (isset($_GET['user'])) {
         // delete account
         if (isset($_GET['delete_account'])) {
             $deleteID = mysqli_real_escape_string($connection, $_GET['delete_account']);
-            $delete = "DELETE FROM `tbl_register` WHERE ID = {$deleteID}";
+            $delete = "DELETE FROM `tbl_register` WHERE `ID` = {$PID} LIMIT 1";
             $delete_query = mysqli_query($connection, $delete);
             if ($delete_query) {
                 header("location: manage-student.php?insert=done&{$cate}");
+            } else {
+                echo " <script>
+                alert(' DELETE ERROR.! ');
+            </script> ";
             }
         }
     }
@@ -186,7 +190,7 @@ if (isset($_GET['user'])) {
                 <br>
                 <?php
                 if ($userID > 2) {
-                    echo "<a href='user-control.php?user={$userID}&delete_account={$userID}' style='background-color: red;'>Permanat Delete</a>";
+                    echo "<a href='user-control.php?ID={$PID}&user={$userID}&delete_account={$userID}' style='background-color: red;'>Permanat Delete</a>";
                 }
                 ?>
             </div>

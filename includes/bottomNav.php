@@ -1,6 +1,6 @@
 <?php
-    if (isset($_GET['status'])){
-        echo '<div class="bottomNav">
+if (isset($_GET['status'])) {
+    echo '<div class="bottomNav">
         <div class="bottomAling">
             <ul>
                 <li class="bottomList">
@@ -23,6 +23,16 @@
                 </li>
                 <li class="bottomList">
                     <a href="#" class="notificationNav">
+                    <div style="
+                    position: absolute;
+                    width: 10px;
+                    height: 10px;
+                    background-color: red;
+                    border-radius: 50%;
+                    top: 10px;
+                    right: 18px;
+                    border: 1px solid #fff;">
+                    </div>
                         <span class="icon"><ion-icon name="notifications-circle-outline"></ion-icon></span>
                         <span class="text">Notification</span>
                     </a>
@@ -37,8 +47,8 @@
             </ul>
         </div>
     </div>';
-    } elseif(isset($_GET['update'])){
-        echo '<div class="bottomNav">
+} elseif (isset($_GET['update'])) {
+    echo '<div class="bottomNav">
         <div class="bottomAling">
             <ul>
                 <li class="bottomList active">
@@ -61,6 +71,16 @@
                 </li>
                 <li class="bottomList">
                     <a href="#" class="notificationNav">
+                    <div style="
+                    position: absolute;
+                    width: 10px;
+                    height: 10px;
+                    background-color: red;
+                    border-radius: 50%;
+                    top: 10px;
+                    right: 18px;
+                    border: 1px solid #fff;">
+                    </div>
                         <span class="icon"><ion-icon name="notifications-circle-outline"></ion-icon></span>
                         <span class="text">Notification</span>
                     </a>
@@ -75,8 +95,8 @@
             </ul>
         </div>
     </div>';
-    } else {
-        echo '<div class="bottomNav">
+} else {
+    echo '<div class="bottomNav">
         <div class="bottomAling">
             <ul>
                 <li class="bottomList">
@@ -99,6 +119,16 @@
                 </li>
                 <li class="bottomList">
                     <a href="#" class="notificationNav">
+                    <div class="fa-beat" style="
+                    position: absolute;
+                    width: 10px;
+                    height: 10px;
+                    background-color: red;
+                    border-radius: 50%;
+                    top: 10px;
+                    right: 18px;
+                    border: 1px solid #fff;">
+                    </div>
                         <span class="icon"><ion-icon name="notifications-circle-outline"></ion-icon></span>
                         <span class="text">Notification</span>
                     </a>
@@ -113,5 +143,4 @@
             </ul>
         </div>
     </div>';
-    }
-?>
+}

@@ -63,7 +63,9 @@ if (isset($_POST['uploadimage'])) {
             }
 
             header("location:update.php?profile=update_your_profile_photo");
-        };
+        } else {
+            header("location:update.php?profile=error");
+        }
     };
 };
 

@@ -83,7 +83,7 @@ if (isset($_GET['delete'])) {
                         <option value=""> Choose </option>
                         <option value="THEORY"> THEORY </option>
                         <option value="REVISION"> REVISION </option>
-                        <option value="THEORY REVISION"> THEORY REVISION </option>
+                        <option value="PAPER ClASS"> PAPER ClASS </option>
                     </select>
                 </p>
                 <p>

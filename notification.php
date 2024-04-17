@@ -38,7 +38,7 @@ if (isset($_POST['submit'])) {
 <?php
 echo '<div class="notification">';
 if (isset($_SESSION['ID'])) {
-    if ($_SESSION['ID'] <= 3) {
+    if ($_SESSION['ID'] <= 2) {
         echo '<form action="notification.php" method="post">
                     <p><textarea placeholder="new message" name="message" maxlength="1000"></textarea></p>
                     <p><select name="target">
@@ -61,7 +61,7 @@ if (isset($_SESSION['ID'])) {
 }
 
 if (isset($_SESSION['ID'])) {
-    if ($_SESSION['ID'] <= 3) {
+    if ($_SESSION['ID'] <= 2) {
         $notificationList = "SELECT * FROM `notification` WHERE `status` = 1 ORDER BY ID DESC";
     } else {
         $notificationList = "SELECT * FROM `notification` WHERE `target` IN('All' , '{$_SESSION['Class']}') AND `status`= 1 ORDER BY ID DESC";
@@ -69,12 +69,12 @@ if (isset($_SESSION['ID'])) {
     $querynoti = mysqli_query($connection, $notificationList);
     if (mysqli_num_rows($querynoti) > 0) {
         $notiList = "<ul>";
-        if ($_SESSION['ID'] <= 3) {
+        if ($_SESSION['ID'] <= 2) {
             while ($notiFetch = mysqli_fetch_assoc($querynoti)) {
                 $notiList .= "<li>" . "<p>" . nl2br(strip_tags($notiFetch['message'])) . "</p>" . "<div><a href='notification.php?delete=0&id=" . $notiFetch['ID'] . "'><i class='fa-solid fa-trash-can delBTN' style='color: #ff0000;'></i></a></div>" . "</li>";
             }
         } else {
-            if ($_SESSION['ID'] > 3) {
+            if ($_SESSION['ID'] > 2) {
                 while ($notiFetch = mysqli_fetch_assoc($querynoti)) {
                     $notiList .= "<li>" . "<div>" . nl2br(strip_tags($notiFetch['message'])) . "</div>" . "<div><i class='fa-solid fa-trash-can none' style='color: #ff0000;'></i></div>" . "</li>";
                 }

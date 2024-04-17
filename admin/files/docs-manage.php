@@ -33,10 +33,19 @@ if (isset($_GET['doc'])) {
         $Class = $details['Class'];
         $Status = $details['Status'];
 
+
         if ($Category == 1) {
             $CategoryView = "Modle Paper";
         } elseif ($Category == 2) {
-            $CategoryView = "Tute";
+            $CategoryView = "Tutes";
+        } elseif ($Category == 3) {
+            $CategoryView = "Modle Paper Marking";
+        } elseif ($Category == 4) {
+            $CategoryView = "Class Mate Paper";
+        } elseif ($Category == 5) {
+            $CategoryView = "Class Mate Paper Marking";
+        } elseif ($Category == 6) {
+            $CategoryView = "Notes";
         }
 
         if ($Status == 1) {
@@ -47,7 +56,7 @@ if (isset($_GET['doc'])) {
 
         // links
         if ($Status == 1) {
-            $link = "<a onclick='loadinEffect()' href='docs-manage.php?doc={$ID}&status=close'>Close Now </a>";
+            $link = "<a onclick='loadinEffect()' href='docs-manage.php?doc={$ID}&status=close'>Hide File </a>";
         } elseif ($Status == 0) {
             $link = "<a onclick='loadinEffect()' href='docs-manage.php?doc={$ID}&status=open' style='background-color: red;'> Open Now </a>";
         }

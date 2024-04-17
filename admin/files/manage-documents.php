@@ -124,6 +124,7 @@ if (isset($_POST['add'])) {
                 <a onclick='loadinEffect()' href="manage-documents.php?Category=3">Modle Paper Marking </a>
                 <a onclick='loadinEffect()' href="manage-documents.php?Category=4">Class Mate Paper </a>
                 <a onclick='loadinEffect()' href="manage-documents.php?Category=5">Class Mate Paper Marking </a>
+                <a onclick='loadinEffect()' href="manage-documents.php?Category=6">Notes </a>
             </div>
             <br>
             <div class="full">
@@ -157,6 +158,7 @@ if (isset($_POST['add'])) {
                         <option value="3">Modle Paper Marking</option>
                         <option value="4">Class Mate Paper</option>
                         <option value="5">Class Mate Paper Marking</option>
+                        <option value="6">Notes</option>
                     </select>
                 </p>
                 <p>
@@ -200,6 +202,14 @@ if (isset($_POST['add'])) {
                                 $DOC_CAT = "Modle Paper";
                             } elseif ($doc_cat == 2) {
                                 $DOC_CAT = "Tutes";
+                            } elseif ($doc_cat == 3) {
+                                $DOC_CAT = "Modle Paper Marking";
+                            } elseif ($doc_cat == 4) {
+                                $DOC_CAT = "Class Mate Paper";
+                            } elseif ($doc_cat == 5) {
+                                $DOC_CAT = "Class Mate Paper Marking";
+                            } elseif ($doc_cat == 6) {
+                                $DOC_CAT = "Notes";
                             }
 
                             echo "<a href='docs-manage.php?doc={$doc_id}' onclick='loadinEffect()'>
