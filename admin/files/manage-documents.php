@@ -30,7 +30,11 @@ if (isset($_GET['class'])) {
     }
 } elseif (isset($_GET['Category'])) {
     $cat = mysqli_real_escape_string($connection, $_GET['Category']);
-    $doduments_list = "SELECT * FROM `modle_papers_&_tutes` WHERE `Category` = {$cat}";
+    if ($cat == 0) {
+        $doduments_list = "SELECT * FROM `modle_papers_&_tutes` WHERE `Status` = {$cat}";
+    } else {
+        $doduments_list = "SELECT * FROM `modle_papers_&_tutes` WHERE `Category` = {$cat}";
+    }
 }
 
 if (isset($_POST['search'])) {
@@ -63,14 +67,16 @@ if (isset($_POST['add'])) {
         header("location: manage-documents.php?insert=error");
     } elseif (!isset($_POST['class']) || strlen(trim($_POST['class'])) < 1) {
         header("location: manage-documents.php?insert=error");
+    } elseif (!isset($_POST['unique']) || strlen(trim($_POST['unique'])) < 1) {
+        header("location: manage-documents.php?insert=error");
     } else {
         $name = mysqli_real_escape_string($connection, $_POST['name']);
-        $name = mysqli_real_escape_string($connection, $_POST['name']);
+        $unique = mysqli_real_escape_string($connection, $_POST['unique']);
         $category = mysqli_real_escape_string($connection, $_POST['category']);
         $class = mysqli_real_escape_string($connection, $_POST['class']);
         $upload_to = "../docs/";
 
-        $add_docs = "INSERT INTO `modle_papers_&_tutes` (`Title`, `File_name`, `Category`, `Class`, `Status`) VALUE ('{$name}', '{$fileName}', {$category}, {$class}, 1)";
+        $add_docs = "INSERT INTO `modle_papers_&_tutes` (`UniqueID`, `Title`, `File_name`, `Category`, `Class`, `Status`) VALUE ('{$unique}', '{$name}', '{$fileName}', {$category}, {$class}, 1)";
         $add_docs_result = mysqli_query($connection, $add_docs);
         if ($add_docs_result) {
             $uploadDocuments = move_uploaded_file($fileTemp, $upload_to . $fileName);
@@ -89,7 +95,7 @@ if (isset($_POST['add'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manage Documents</title>
+    <title> Manage Documents </title>
     <link rel="stylesheet" href="../../assect/css/admin.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
@@ -126,8 +132,11 @@ if (isset($_POST['add'])) {
                 <a onclick='loadinEffect()' href="manage-documents.php?Category=5">Class Mate Paper Marking </a>
                 <a onclick='loadinEffect()' href="manage-documents.php?Category=6">Notes </a>
             </div>
-            <br>
+            <br><br>
             <div class="full">
+                <a onclick='loadinEffect()' href="manage-documents.php?Category=0"> Hidden documents </a>
+
+                <br>
                 <a id="add-btn" href="#add-docs"> Add Documents </a>
             </div>
 
@@ -147,6 +156,11 @@ if (isset($_POST['add'])) {
                 <p>
                     Dodument name / Title : <br>
                     <input name="name" placeholder="Title">
+                </p>
+
+                <p>
+                    Unique ID : <br>
+                    <input name="unique" placeholder="Unique ID">
                 </p>
 
                 <p>

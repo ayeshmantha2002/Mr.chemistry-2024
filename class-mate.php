@@ -41,12 +41,7 @@ if (!isset($_SESSION['ID'])) {
     <link rel="stylesheet" href="assect/css/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
     <link rel="icon" href="assect/img/icon/logo.png">
-
-    <style>
-        .upNav ul {
-            display: block;
-        }
-    </style>
+    <link rel="stylesheet" href="assect/css/modify.css">
 </head>
 
 <body>
@@ -65,9 +60,6 @@ if (!isset($_SESSION['ID'])) {
                 cursor: pointer;"></i> Mr.Chemistry<span id="maths">.lk </span> </h3>
                 <p> NIPUN PALLIYAGURU </p>
             </div>
-            <ul>
-                <li><a href="Class-Mate-Marking" onclick='loadinEffect()'> CM-Marking </a></li>
-            </ul>
         </div>
     </div>
 
@@ -107,28 +99,37 @@ if (!isset($_SESSION['ID'])) {
                 <?php
                 if ($modle_paper_result) {
                     if (mysqli_num_rows($modle_paper_result) > 0) {
-                        echo "<ul>";
-                        $x = 0;
                         while ($document = mysqli_fetch_assoc($modle_paper_result)) {
-                            $x = $x + 1;
                             $file_name = $document['File_name'];
+                            $UniqueID = $document['UniqueID'];
                             $class = $document['Class'];
                             $title = $document['Title'];
                             $File_name = $document['File_name'];
                             $Date_Time = $document['Date_Time'];
                             $parth = "download/documents/file.php?doc=$file_name";
-                            echo "<a href='$parth' target='_blank'>";
-                            echo "<li>";
-                            echo "<div>";
-                            echo " <p style='color: #000;'> <span style='font-weight: bold; font-family: Poppins;'>Title : </span>{$title} </p> ";
-                            echo " <p style='color: #000;'> <span style='font-weight: bold; font-family: Poppins;'>Class : </span>{$class} </p> ";
-                            echo " <p style='color: #000;'> <span style='font-weight: bold; font-family: Poppins;'>File Name : </span>{$File_name} </p> ";
-                            echo " <p style='color: #000;'> <span style='font-weight: bold; font-family: Poppins;'>Date : </span>{$Date_Time} </p> ";
-                            echo "</div>";
-                            echo "</li>";
-                            echo "</a>";
+
+                            $modle_paperMarking = "SELECT `File_name` FROM `modle_papers_&_tutes` WHERE `Category` = 5 AND `UniqueID` = '{$UniqueID}'";
+                            $modle_paperMarking_Query = mysqli_query($connection, $modle_paperMarking);
+
+                            if (mysqli_num_rows($modle_paperMarking_Query) > 0) {
+                                $fetchName = mysqli_fetch_assoc($modle_paperMarking_Query);
+                                $file_nameMarking = $fetchName['File_name'];
+                                $MarkinParth = "<a href='download/documents/file.php?doc=$file_nameMarking' target='_blank'> Marking </a>";
+                            } else {
+                                $MarkinParth = "<a href='class-mate.php?wait=soon'> Marking </a>";
+                            }
+
+                            echo "<div class='paperDIV'>
+                            <div class='title'>
+                                <img src='assect/img/content/doc.jpg' alt='pdf'>
+                                <h3> {$title} </h3>
+                            </div>
+                            <div class='buttons'>
+                                <a href='{$parth}' target='_blank'> Paper </a>
+                                {$MarkinParth}
+                            </div>
+                        </div>";
                         }
-                        echo '</ul>';
                     } else {
                         echo "<ul>";
                         echo "<a href='#'>";
@@ -140,11 +141,25 @@ if (!isset($_SESSION['ID'])) {
                         echo "</a>";
                         echo '</ul>';
                     }
-                    echo "<p style='text-align: center;'><a style=' color: var(--text-blue); text-decoration: underline;' href='modle-papers'> All Result </a></p>";
+                    echo "<p style='text-align: center;'><a style=' color: var(--text-blue); text-decoration: underline;' href='class-mate'> All Result </a></p>";
                 }
                 ?>
             </div>
             <?php
+            if (isset($_GET['wait'])) {
+                echo '<div class="paperSoon">
+                        <div class="paperSoon_Alin">
+                            <div>
+                                <i class="fa-solid fa-clock fa-bounce fa-2xl"></i>
+                                <br><br>
+                                <p> "Marking scheme" will be uploaded very soon. </p>
+                                <br>
+                                <p><a href="class-mate"> OK </a></p>
+                            </div>
+                        </div>
+                    </div>';
+            }
+
             include "includes/footer.php";
             ?>
             <div class="space2"></div>
@@ -166,6 +181,7 @@ if (!isset($_SESSION['ID'])) {
     <script src="assect/js/javascript.js"></script>
     <script src="assect/js/viewjs.js"></script>
     <script src="https://unpkg.com/boxicons@2.1.3/dist/boxicons.js"></script>
+
     <script>
         function loadinEffect() {
             document.getElementById('loader').style.display = "block";

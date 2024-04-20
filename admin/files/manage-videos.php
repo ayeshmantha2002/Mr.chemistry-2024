@@ -42,12 +42,13 @@ $SearchCatagory_result = mysqli_query($connection, $SearchCatagory);
 // insert video
 if (isset($_POST['add-video-db'])) {
     $title = mysqli_real_escape_string($connection, $_POST['title']);
+    $UniqueID = mysqli_real_escape_string($connection, $_POST['UniqueID']);
     $link = mysqli_real_escape_string($connection, $_POST['link']);
     $description = mysqli_real_escape_string($connection, $_POST['description']);
     $catagory = mysqli_real_escape_string($connection, $_POST['catagory']);
     $lesson = mysqli_real_escape_string($connection, $_POST['lesson']);
 
-    $insert_video = "INSERT INTO `videos` (`Title`, `Link`, `Description`, `Catagory`, `Lesson`, `Status`) VALUE ('{$title}', '{$link}', '{$description}', '{$catagory}', {$lesson}, 1)";
+    $insert_video = "INSERT INTO `videos` (`Title`, `UniqueID`, `Link`, `Description`, `Catagory`, `Lesson`, `Status`) VALUE ('{$title}', '{$UniqueID}', '{$link}', '{$description}', '{$catagory}', {$lesson}, 1)";
     $insert_video_result = mysqli_query($connection, $insert_video);
     if ($insert_video_result) {
         header("location: manage-videos.php?insert=done");
@@ -63,7 +64,7 @@ if (isset($_POST['add-video-db'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manage Videos</title>
+    <title> Manage Videos </title>
     <link rel="stylesheet" href="../../assect/css/admin.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
@@ -71,7 +72,7 @@ if (isset($_POST['add-video-db'])) {
 <body>
     <!-- main area  -->
     <div class="area">
-        <div class="area-aline">
+        <div class="area-aline" style="max-width: 1000px;">
             <header>
                 <nav>
                     <a href="../admin.php" onclick='loadinEffect()'> <i class="fa-solid fa-angle-left"></i> </a>
@@ -178,6 +179,12 @@ if (isset($_POST['add-video-db'])) {
                             <option value="40"> Modle Paper 30 </option>
                         </select>
                     </p>
+                    <br>
+                    <p style="color: red;">
+                        Unique ID <br> ( Paper Discussions video එකක් නම් Paper එකට අදාල Unique ID එක සඳහන් කරන්න. ) :
+                        <input type="text" placeholder="Unique ID" name="UniqueID">
+                    </p>
+                    <br>
                     <p>
                         <button type="submit" name="add-video-db"> Add Video </button>
                     </p>
