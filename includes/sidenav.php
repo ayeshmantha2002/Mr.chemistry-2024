@@ -1,7 +1,7 @@
 <?php
 
 if (isset($_SESSION['ID'])) {
-    $User   =   "SELECT * FROM tbl_register WHERE ID = {$_SESSION['ID']} LIMIT 1";
+    $User   =   "SELECT `First_name`, `Last_name`, `Confirm_user`, `Pro_pic`, `Notification` FROM `tbl_register` WHERE ID = {$_SESSION['ID']} LIMIT 1";
     $query  =   mysqli_query($connection, $User);
     if ($query) {
         if (mysqli_num_rows($query) == 1) {
@@ -18,8 +18,17 @@ if (isset($_SESSION['ID'])) {
             } else {
                 $activeSatus    =   "Not verified user";
             }
+
+            $NotiValue = $user_details['Notification'];
+            if ($NotiValue == 1) {
+                $display = "display: block;";
+            } else {
+                $display = "display: none;";
+            }
         }
     }
+} else {
+    $display = "display: none;";
 }
 
 ?>
@@ -66,9 +75,19 @@ if (isset($_SESSION['ID'])) {
                         <ion-icon name="stats-chart-outline"></ion-icon>
                         Dashboad</a>
                 </li>
-                <li><a class="notificationNav" title="Mr.ChemistrY - Notification">
+                <li><a class="notificationNav" title="Mr.ChemistrY - Notification" style="position: relative;">
+                        <div class="fa-beat" style="
+                        width: 12px;
+                        height: 12px;
+                        background-color: red;
+                        position: absolute;
+                        right: 10px;
+                        border-radius: 50%;
+                        <?php echo $display ?>
+                        "></div>
                         <ion-icon name="notifications-circle-outline"></ion-icon>
-                        Notification</a>
+                        Notification
+                    </a>
                 </li>
                 <li><a class="notesNav" title="Mr.ChemistrY - My Notes">
                         <ion-icon name="document-outline"></ion-icon>

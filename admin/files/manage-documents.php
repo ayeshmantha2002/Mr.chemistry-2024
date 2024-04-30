@@ -67,8 +67,6 @@ if (isset($_POST['add'])) {
         header("location: manage-documents.php?insert=error");
     } elseif (!isset($_POST['class']) || strlen(trim($_POST['class'])) < 1) {
         header("location: manage-documents.php?insert=error");
-    } elseif (!isset($_POST['unique']) || strlen(trim($_POST['unique'])) < 1) {
-        header("location: manage-documents.php?insert=error");
     } else {
         $name = mysqli_real_escape_string($connection, $_POST['name']);
         $unique = mysqli_real_escape_string($connection, $_POST['unique']);
@@ -77,13 +75,17 @@ if (isset($_POST['add'])) {
         $upload_to = "../docs/";
 
         $add_docs = "INSERT INTO `modle_papers_&_tutes` (`UniqueID`, `Title`, `File_name`, `Category`, `Class`, `Status`) VALUE ('{$unique}', '{$name}', '{$fileName}', {$category}, {$class}, 1)";
-        $add_docs_result = mysqli_query($connection, $add_docs);
-        if ($add_docs_result) {
-            $uploadDocuments = move_uploaded_file($fileTemp, $upload_to . $fileName);
+        $uploadDocuments = move_uploaded_file($fileTemp, $upload_to . $fileName);
 
-            if ($uploadDocuments) {
+        if ($uploadDocuments) {
+            $add_docs_result = mysqli_query($connection, $add_docs);
+            if ($add_docs_result) {
                 header("location: manage-documents.php?insert=done");
+            } else {
+                header("location: manage-documents.php?upload=error");
             }
+        } else {
+            header("location: manage-documents.php?upload=error");
         }
     }
 }
@@ -249,6 +251,21 @@ if (isset($_POST['add'])) {
             <div class='done-message-center'>
                 <p> <i class='fa-solid fa-circle-check fa-bounce fa-2xl'></i> </p>
                 <h1> Done </h1>
+                <p> <a href='manage-documents.php'> OK </a> </p>
+            </div>
+        </div>";
+        }
+    }
+
+    // error message
+    if (isset($_GET['upload'])) {
+        if ($_GET['upload'] == "error") {
+            echo "<div class='done-message'>
+            <div class='done-message-center'>
+                <p> <i style='color: red;' class='fa-solid fa-circle-exclamation fa-bounce fa-lg'></i> </p>
+                <h1 style='color: red;'> Your connection is poor. </h1>
+                <h3 style='color: red;'> File upload error...! </h3>
+                <br>
                 <p> <a href='manage-documents.php'> OK </a> </p>
             </div>
         </div>";

@@ -1,6 +1,11 @@
 <?php
-sleep(1);
 include("includes/connection.php");
+
+$classList = "SELECT `class` FROM `class` ORDER BY `class`";
+$classListResult = mysqli_query($connection, $classList);
+
+$UpNoti = "UPDATE `tbl_register` SET `Notification` = 0 WHERE `ID` = {$_SESSION['ID']}";
+$UpNotiResult = mysqli_query($connection, $UpNoti);
 
 if (isset($_GET['delete'])) {
     if ($_GET['delete'] == 0) {
@@ -17,6 +22,14 @@ if (isset($_POST['submit'])) {
         $message = mysqli_real_escape_string($connection, $_POST['message']);
         $insertmsg = nl2br(strip_tags($message));
         $target = $_POST['target'];
+
+        if ($target == "ALL") {
+            $updatTBLREGISTER = "UPDATE `tbl_register` SET `Notification` = 1";
+        } else {
+            $updatTBLREGISTER = "UPDATE `tbl_register` SET `Notification` = 1 WHERE `Class` = {$target}";
+        }
+        $updatTBLREGISTER_result = mysqli_query($connection, $updatTBLREGISTER);
+
 
         $inserMessage = "INSERT INTO `notification` (`message`, `target`, `status`) VALUES ('{$insertmsg}', '{$target}', 1);";
         $queryMessage = mysqli_query($connection, $inserMessage);
@@ -39,17 +52,19 @@ if (isset($_POST['submit'])) {
 echo '<div class="notification">';
 if (isset($_SESSION['ID'])) {
     if ($_SESSION['ID'] <= 2) {
-        echo '<form action="notification.php" method="post">
-                    <p><textarea placeholder="new message" name="message" maxlength="1000"></textarea></p>
-                    <p><select name="target">
-                        <option value="ALL">All</option>
-                        <option value="2024">2024</option>
-                        <option value="2025">2025</option>
-                        <option value="2026">2026</option>
-                    </select></p>
+        if (mysqli_num_rows($classListResult) > 0) {
+            echo "<form action='notification.php' method='post'>
+                    <p><textarea placeholder='new message' name='message' maxlength='1000'></textarea></p>
+                    <p><select name='target'>
+                    <option value='ALL'>All</option>";
+            while ($classes = mysqli_fetch_assoc($classListResult)) {
+                echo "<option value='{$classes['class']}'>{$classes['class']}</option>";
+            }
+            echo "</select></p>
                     <br>
-                    <p><input type="submit" name="submit" value="Send Message"></p>
-                </form>';
+                    <p><input type='submit' name='submit' value='Send Message'></p>
+                </form>";
+        }
     }
 } else {
     echo '<div class="viewProfile2">

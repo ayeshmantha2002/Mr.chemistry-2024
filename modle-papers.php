@@ -166,7 +166,7 @@ if (!isset($_SESSION['ID'])) {
                     <br><br>
                     <p> "Marking scheme" will be uploaded very soon. </p>
                     <br>
-                    <p><a href="class-mate"> OK </a></p>
+                    <p><a href="modle-papers"> OK </a></p>
                 </div>
             </div>
         </div>';
