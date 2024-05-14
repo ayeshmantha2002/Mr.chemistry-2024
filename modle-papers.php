@@ -72,7 +72,7 @@ if (!isset($_SESSION['ID'])) {
         <div class="content">
             <div class="lable">
                 <div class="lableAling">
-                    <h2> Modle Papers </h2>
+                    <h2> Model Papers </h2>
                     <p>Mr.ChemistrY - <span style='font-family: "Noto Sans Sinhala"; font-weight: bold;'> වෙනස්ම රහකට </span> ChemistrY </p>
                 </div>
             </div>
@@ -127,7 +127,7 @@ if (!isset($_SESSION['ID'])) {
                             <div class='buttons'>
                                 <a href='{$parth}' target='_blank'> Paper </a>
                                 {$MarkinParth}
-                                <a href='paper-discussions.php?searchID={$UniqueID}'> Video Discution </a>
+                                <a href='paper-discussions.php?searchID={$UniqueID}'> Video Discussions </a>
                             </div>
                         </div>";
                         }

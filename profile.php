@@ -69,7 +69,7 @@ if (isset($_SESSION['ID'])) {
     }
 
     $numberOfPaper  =   $PapersCount + $Papersabsent + $Papersuspend;
-    $AvPaper    =   30 - $numberOfPaper;
+    $AvPaper    =   20 - $numberOfPaper;
 
 
     // score calculations
@@ -204,7 +204,7 @@ if (isset($_POST['remove'])) {
         </div>
         <iframe src="mydetails.php" style="background-color: white; border:none; width:100%; height:400px;"></iframe>
         <div id="myChart">
-            <h4><span class="blue">Number of papers : </span> <span class="big blue">' . $numberOfPaper . '/30</span></h4>
+            <h4><span class="blue">Number of papers : </span> <span class="big blue">' . $numberOfPaper . '/20</span></h4>
             <h4><span>Number of tests completed : </span> <span class="">' . $PapersCount . '</span> </h4>
             <h4><span>Number of tests available : </span> <span class="">' . round($AvPaper, 1) . '</span> </h4>
             <h4><span>Absent papers : </span> <span class="">' . $Papersabsent . '</span> </h4>
