@@ -1,5 +1,4 @@
 <?php
-header("location: index");
 include("includes/connection.php");
 if (!isset($_SESSION['ID'])) {
     header('location:index.php');
@@ -57,15 +56,6 @@ if (!isset($_SESSION['ID'])) {
                 <li><a href="register"> Register </a></li>
                 <li><a href="login"> Login </a></li>
             </ul>
-
-            <?php
-            if (isset($_SESSION['ID'])) {
-                if ($_SESSION['ID'] <= 3) {
-                    echo '<ul><li><a href="admin/admin.php"> Admin </a></li></ul>';
-                }
-            };
-            ?>
-
         </div>
     </div>
     <div class="hero">
@@ -138,18 +128,6 @@ if (!isset($_SESSION['ID'])) {
                     ?>
                 </ul>
                 <br><br>
-                <?php
-                if (!isset($_SESSION['ID'])) {
-                    echo '<div class="sideRegister">
-                    <li class="hide"><a href="register">Register</a></li>
-                    <li class="hide"><a href="login">Log in</a></li>
-                </div>';
-                } else {
-                    if ($_SESSION['ID'] == 1 || $_SESSION['ID'] == 2 || $_SESSION['ID'] == 3) {
-                        echo '<div class="sideRegister"><ul><li><a href="admin/admin.php">Admin</a></li></ul></div>';
-                    }
-                }
-                ?>
                 <div class="space"></div>
             </div>
         </div>
@@ -161,7 +139,7 @@ if (!isset($_SESSION['ID'])) {
     </div>
     <div class="ai" style="transform: translateY(-50px);">
         <div class="ai_aling">
-            <iframe src="https://www.mathway.com" style="width: 100%;height: 100%; border: 1px solid var(--text-blue);"></iframe>
+            <iframe src="https://www.mathway.com/chemistry" style="width: 100%;height: 100%; border: 1px solid var(--text-blue);"></iframe>
         </div>
     </div>
 </body>
