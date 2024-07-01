@@ -1,7 +1,7 @@
 <?php
 include "../../includes/connection.php";
 if (isset($_SESSION['ID'])) {
-    if ($_SESSION['ID'] >= 4) {
+    if ($_SESSION['ID'] >= 2) {
         header("location: ../../index");
     }
 } else {
@@ -23,11 +23,11 @@ if (isset($_GET['class'])) {
 if (isset($_GET['user-category'])) {
     $Category = "user-category={$_GET['user-category']}";
     if ($_GET['user-category'] == "New") {
-        $SearchCatagory = "SELECT * FROM tbl_register WHERE `Is_Active` = 1 AND `Confirm_user` = 3";
+        $SearchCatagory = "SELECT * FROM tbl_register WHERE `Is_Active` = 1 AND `Confirm_user` = 3 ORDER BY `userName`";
     } elseif ($_GET['user-category'] == "Not") {
-        $SearchCatagory = "SELECT * FROM tbl_register WHERE `Is_Active` = 0";
+        $SearchCatagory = "SELECT * FROM tbl_register WHERE `Is_Active` = 0 ORDER BY `userName`";
     } elseif ($_GET['user-category'] == "Suspended") {
-        $SearchCatagory = "SELECT * FROM tbl_register WHERE `Is_Active` = 1 AND `Confirm_user` = 2";
+        $SearchCatagory = "SELECT * FROM tbl_register WHERE `Is_Active` = 1 AND `Confirm_user` = 2 ORDER BY `userName`";
     }
 } elseif (isset($_POST['studentID'])) {
     $studentID = mysqli_real_escape_string($connection, $_POST['studentID']);
@@ -102,6 +102,7 @@ $SearchCatagory_result = mysqli_query($connection, $SearchCatagory);
                 if ($SearchCatagory_result) {
                     if (mysqli_num_rows($SearchCatagory_result) > 0) {
                         while ($users = mysqli_fetch_assoc($SearchCatagory_result)) {
+                            $ID = $users['ID'];
                             $user_id = $users['userName'];
                             $user_first = $users['First_name'];
                             $user_last = $users['Last_name'];
@@ -119,7 +120,7 @@ $SearchCatagory_result = mysqli_query($connection, $SearchCatagory);
                                 $confirm = "tomato_box";
                             }
 
-                            echo "<a href='user-control.php?user={$user_id}' onclick='loadinEffect()'>
+                            echo "<a href='user-control.php?ID={$ID}&user={$user_id}' onclick='loadinEffect()'>
                             <li style='position: relative;'>
                                 <div id='student-details'>
                                     <p>{$user_id}</p>

@@ -34,6 +34,6 @@
         </div>
     </div>
     <div class="copiright">
-        <p> Copyright @ 2024 Mr.ChemistrY All rights reserved. Designed By <a href="https://nethub.lk" target="_blank" style="color: #fff;">Nethub.lk</a></p>
+        <p> Copyright @ 2024 Mr.ChemistrY All rights reserved. Designed By <a href="https://api.whatsapp.com/send/?phone=94711596479&text=Hello Sameera Ayeshmantha." target="_blank" style="color: #fff;">Nethub.lk</a></p>
     </div>
 </footer>

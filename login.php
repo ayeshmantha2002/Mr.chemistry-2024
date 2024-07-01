@@ -38,7 +38,7 @@ if (isset($_COOKIE['userPasswordMRMATHS'])) {
         $Password = mysqli_real_escape_string($connection, $_POST['password']);
         $Hashpassword = sha1($Password);
 
-        $User   =   "SELECT * FROM tbl_register WHERE (E_mail = '{$E_mail}' OR userName = '{$E_mail}') AND Password = '{$Hashpassword}' LIMIT 1";
+        $User   =   "SELECT * FROM `tbl_register` WHERE (`E_mail` = '{$E_mail}' OR `userName` = '{$E_mail}') AND (`Password` = '{$Hashpassword}') LIMIT 1";
         $query  =   mysqli_query($connection, $User);
 
         if ($query) {

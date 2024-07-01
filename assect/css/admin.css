@@ -51,7 +51,7 @@ a {
 
 .area-aline {
   width: 100%;
-  max-width: 1080px;
+  max-width: 1366px;
   margin: auto;
   box-sizing: border-box;
   overflow-x: hidden;
@@ -547,7 +547,18 @@ thead tr:nth-child(odd) {
   color: #fff;
 }
 
-tbody tr:nth-child(odd) {
+/* tbody tr:nth-child(odd) {
+  background-color: var(--main-tow);
+} */
+
+tbody tr td input[type="submit"] {
+  background-color: var(--text-blue);
+  color: var(--text-color);
+  font-weight: bold;
+  transition: 0.3s;
+}
+
+tbody tr td input[type="submit"]:hover {
   background-color: var(--main-tow);
 }
 

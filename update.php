@@ -10,35 +10,11 @@ $errors  =   array();
 
 // image upload process
 if (isset($_POST['uploadimage'])) {
-    // $file_name  =   $_FILES['image']['name'];
-    // $file_type  =   $_FILES['image']['type'];
-    // $file_size  =   $_FILES['image']['size'];
-    // $tmp_name  =   $_FILES['image']['tmp_name'];
-
-    // $upload_to = 'admin/students/';
-
 
     $file_name = $_POST['file_name'];
-    $base64Image = $_POST['cropped_img'];
-    // $image = explode(',', $base64_img);
-    // $upload_Img = base64_decode($image[1]);
-
-    // Extract image data and mime type from base64 string
-    list($mime, $base64Data) = explode(';', $base64Image);
-    list(, $base64Data) = explode(',', $base64Data);
-
-    // Decode base64 data
-    $imageData = base64_decode($base64Data);
-
-    // Determine file extension based on the mime type
-    $extension = '';
-    if ($mime === 'data:image/jpeg') {
-        $extension = 'jpg';
-    } elseif ($mime === 'data:image/png') {
-        $extension = 'png';
-    } elseif ($mime === 'data:image/gif') {
-        $extension = 'gif';
-    }
+    $base64_img = $_POST['cropped_img'];
+    $image = explode(',', $base64_img);
+    $upload_img = base64_decode($image[1]);
 
     if (empty($errors)) {
         $deletSearch = "SELECT * FROM tbl_register WHERE ID = {$_SESSION['ID']}";
@@ -50,83 +26,46 @@ if (isset($_POST['uploadimage'])) {
             if ($oldImgName != "user.png") {
                 $parth = "admin/students/{$oldImgName}";
                 if (unlink($parth)) {
-                    if ($extension) {
-
-                        // Set the path to save the image
-                        $savePath = 'admin/students/' . $file_name;
-
-                        // Load the image using GD library
-                        if ($extension === 'jpg') {
-                            $image = imagecreatefromjpeg("data://image/jpeg;base64," . $base64Data);
-                        } elseif ($extension === 'png') {
-                            $image = imagecreatefrompng("data://image/png;base64," . $base64Data);
-                        } elseif ($extension === 'gif') {
-                            $image = imagecreatefromgif("data://image/gif;base64," . $base64Data);
-                        }
-
-                        // Compress the image (adjust quality value as needed)
-                        $compressionQuality = 40;
-                        $success = imagejpeg($image, $savePath, $compressionQuality);
-
-                        // Free up memory
-                        imagedestroy($image);
-
-                        echo "Image saved and compressed successfully!";
-                    } else {
-                        echo "Unsupported image format.";
-                    }
-                }
-            } else {
-                if ($extension) {
 
                     // Set the path to save the image
                     $savePath = 'admin/students/' . $file_name;
-
-                    // Load the image using GD library
-                    if ($extension === 'jpg') {
-                        $image = imagecreatefromjpeg("data://image/jpeg;base64," . $base64Data);
-                    } elseif ($extension === 'png') {
-                        $image = imagecreatefrompng("data://image/png;base64," . $base64Data);
-                    } elseif ($extension === 'gif') {
-                        $image = imagecreatefromgif("data://image/gif;base64," . $base64Data);
-                    }
-
-                    // Compress the image (adjust quality value as needed)
-                    $compressionQuality = 40;
-                    $success = imagejpeg($image, $savePath, $compressionQuality);
-
-                    // Free up memory
-                    imagedestroy($image);
-
+                    $success = file_put_contents($savePath, $upload_img);
                     echo "Image saved and compressed successfully!";
-                } else {
-                    echo "Unsupported image format.";
                 }
+            } else {
+                // Set the path to save the image
+                $savePath = 'admin/students/' . $file_name;
+                $success = file_put_contents($savePath, $upload_img);
+                echo "Image saved and compressed successfully!";
+
+                echo "Image saved and compressed successfully!";
             }
         }
 
         if ($success) {
-            $updatPic  =   "UPDATE tbl_register SET Pro_pic = '{$file_name}' WHERE ID = {$_SESSION['ID']} LIMIT 1";
+            $updatPic  =   "UPDATE `tbl_register` SET `Pro_pic` = '{$file_name}' WHERE `ID` = {$_SESSION['ID']} LIMIT 1";
             $result_updatePic  =   mysqli_query($connection, $updatPic);
 
-            $searchUser = "SELECT * FROM score WHERE User_ID = {$_SESSION['ID']}";
+            $searchUser = "SELECT * FROM score WHERE User_ID = '{$_SESSION['userID_Name']}'";
             $searchUserResult = mysqli_query($connection, $searchUser);
 
-            $searchUser2 = "SELECT * FROM al_result WHERE User_ID = {$_SESSION['ID']}";
+            $searchUser2 = "SELECT * FROM al_result WHERE User_ID = '{$_SESSION['userID_Name']}'";
             $searchUserResult2 = mysqli_query($connection, $searchUser2);
 
             if (mysqli_num_rows($searchUserResult) > 0) {
-                $updatPic  =   "UPDATE score SET Pro_pic = '{$file_name}' WHERE User_ID = {$_SESSION['ID']}";
+                $updatPic  =   "UPDATE score SET Pro_pic = '{$file_name}' WHERE User_ID = '{$_SESSION['userID_Name']}'";
                 $result_updatePic  =   mysqli_query($connection, $updatPic);
             }
 
             if (mysqli_num_rows($searchUserResult2) == 1) {
-                $updatPic2  =   "UPDATE al_result SET img = '{$file_name}' WHERE User_ID = {$_SESSION['ID']}";
+                $updatPic2  =   "UPDATE `al_result` SET `img` = '{$file_name}' WHERE User_ID = '{$_SESSION['userID_Name']}'";
                 $result_updatePic2  =   mysqli_query($connection, $updatPic2);
             }
 
             header("location:update.php?profile=update_your_profile_photo");
-        };
+        } else {
+            header("location:update.php?profile=error");
+        }
     };
 };
 
@@ -369,7 +308,7 @@ if (isset($_SESSION['ID'])) {
                 font-size: 25px;
                 transform: translateY(4px);
                 cursor: pointer;"></i> Mr. <span id="maths"> ChemistrY </span> </h3>
-                <p>Mr.ChemistrY - <span style='font-family: "Noto Sans Sinhala"; font-weight: bold;'> වෙනස්ම රහකට </span> ChemistrY </p>
+                <p> NIPUN PALLIYAGURU </p>
             </div>
             <ul <?php if (isset($_SESSION['ID'])) {
                     echo "hidden";
@@ -388,7 +327,7 @@ if (isset($_SESSION['ID'])) {
             <div class="lable">
                 <div class="lableAling">
                     <h2> Mr.Maths </h2>
-                    <p> Chemistry <span style='font-family: "Noto Sans Sinhala"; font-weight: bold;'> වලට තවත් නමක් </span> </p>
+                    <p>Mr.ChemistrY - <span style='font-family: "Noto Sans Sinhala"; font-weight: bold;'> වෙනස්ම රහකට </span> ChemistrY </p>
                 </div>
             </div>
             <div class="updateForm">
@@ -403,6 +342,9 @@ if (isset($_SESSION['ID'])) {
                         ?>
                     </div>
                     <br>
+
+
+                    <!-- image inputs -->
                     <div class="imageUpload">
                         <p><input type="file" name="image" id="image"> Upload Profile Picture </p>
                         <div>

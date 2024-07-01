@@ -1,5 +1,7 @@
 <?php
-
+$email = "";
+$password = "";
+$invalid = "";
 include("../includes/connection.php");
 
 if (isset($_POST['submit'])) {
@@ -7,12 +9,13 @@ if (isset($_POST['submit'])) {
     $password = mysqli_real_escape_string($connection, $_POST['Password']);
     $hashPassword = sha1($password);
 
-    $chech = "SELECT * FROM `tbl_register` WHERE `E_mail` = '{$email}' AND `Password` = '{$hashPassword}' LIMIT 1";
+    $chech = "SELECT * FROM `tbl_register` WHERE (`E_mail` = '{$email}' OR `userName` = '{$email}') AND (`Password` = '{$hashPassword}') LIMIT 1";
     $chech_result = mysqli_query($connection, $chech);
     if (mysqli_num_rows($chech_result) == 1) {
         $userFetch = mysqli_fetch_assoc($chech_result);
 
         $_SESSION['ID']    =   $userFetch['ID'];
+        $_SESSION['userID_Name']    =   $userFetch['userName'];
         $_SESSION['First_name']    =   $userFetch['First_name'];
         $_SESSION['Last_name']    =   $userFetch['Last_name'];
         $_SESSION['E_mail']    =   $userFetch['E_mail'];
@@ -21,7 +24,7 @@ if (isset($_POST['submit'])) {
 
         header("location: admin.php");
     } else {;
-        header("location: login.php?incorrect=email_or_password");
+        $invalid = "Invalid email address or password";
     }
 }
 ?>
@@ -55,8 +58,9 @@ if (isset($_POST['submit'])) {
 <body>
     <div class="content">
         <form method="post">
-            <p> <input type="text" name="email" placeholder="E-mail"> </p>
-            <p> <input type="password" name="Password" placeholder="Password"> </p>
+            <p style="text-align: center; color: red;"> <?php echo $invalid; ?> </p>
+            <p> <input type="text" name="email" placeholder="E-mail / User Name" value="<?php echo $email; ?>"> </p>
+            <p> <input type="password" name="Password" placeholder="Password" value="<?php echo $password; ?>"> </p>
             <p> <input type="submit" name="submit" value="LOGIN"> </p>
         </form>
     </div>

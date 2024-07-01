@@ -2,7 +2,7 @@
 // securuty
 include "../../includes/connection.php";
 if (isset($_SESSION['ID'])) {
-    if ($_SESSION['ID'] >= 3) {
+    if ($_SESSION['ID'] >= 2) {
         header("location: ../../index");
     }
 } else {
@@ -16,8 +16,31 @@ if (isset($_GET['user'])) {
     $userID = mysqli_real_escape_string($connection, $_GET['user']);
 
     // filter score 
-    $scoreList = "SELECT * FROM score WHERE User_ID = '{$userID}' ORDER BY ID DESC";
+    $scoreList2 = "SELECT * FROM score WHERE User_ID = '{$userID}' AND `ID` = {$_GET['SSID']} ORDER BY ID DESC";
+    $scoreList2_result = mysqli_query($connection, $scoreList2);
+
+    $scoreList = "SELECT * FROM score WHERE User_ID = '{$userID}' AND `ID` = {$_GET['SSID']} ORDER BY ID DESC";
     $scoreList_result = mysqli_query($connection, $scoreList);
+
+    $MP_number = mysqli_fetch_assoc($scoreList_result);
+    $mp_nmberFetch = $MP_number['Test'];
+    $mp_score = $MP_number['Score'];
+    $mp_class = $MP_number['Class'];
+    $mp_Status = $MP_number['Status'];
+
+    if ($mp_Status == 1) {
+        $one = "checked";
+        $tow = "";
+        $three = "";
+    } elseif ($mp_Status == 2) {
+        $one = "";
+        $tow = "checked";
+        $three = "";
+    } elseif ($mp_Status == 3) {
+        $one = "";
+        $tow = "";
+        $three = "checked";
+    }
 
     $user = "SELECT * FROM tbl_register WHERE userName = '{$userID}'";
     $user_result = mysqli_query($connection, $user);
@@ -34,7 +57,7 @@ if (isset($_GET['user'])) {
 
     $paper_count = mysqli_num_rows($paper_result);
 
-    // insert data 
+    // update data 
     if (isset($_POST['insert'])) {
 
         if (!isset($_POST['copied']) || strlen(trim($_POST['copied'])) < 1) {
@@ -47,16 +70,10 @@ if (isset($_GET['user'])) {
             $copied = mysqli_real_escape_string($connection, $_POST['copied']);
             $paperNumber = mysqli_real_escape_string($connection, $_POST['paper']);
 
-            $check = "SELECT * FROM score WHERE User_ID = '{$userID}' AND Test = '{$paperNumber}'";
-            $check_result = mysqli_query($connection, $check);
-            if (mysqli_num_rows($check_result) !== 1) {
-                $insert = "INSERT INTO score (`User_ID`, `Full_name`, `Class`, `Category`, `Test`, `Score`, `Status`, `Average`, `Pro_pic`) VALUE ('{$userID}', '{$name}', {$class}, '{$Category}', '{$paperNumber}', '{$score}', {$copied}, 0, '{$Pro_pic}')";
-                $insert_result = mysqli_query($connection, $insert);
+            $insert = "UPDATE score SET `Test` = '{$paperNumber}', `Score` = '{$score}', `Status` = {$copied} WHERE `ID` = {$_GET['SSID']}";
+            $insert_result = mysqli_query($connection, $insert);
 
-                header("location: avarage.php?user={$userID}&score={$score}&class={$class}&test={$paperNumber}");
-            } else {
-                $allready = "record already exist";
-            }
+            header("location: avarage.php?user={$userID}&score={$score}&class={$class}&test={$paperNumber}&quick");
         }
     }
 
@@ -68,7 +85,7 @@ if (isset($_GET['user'])) {
         $delete_result = mysqli_query($connection, $delete);
 
         if ($delete_result) {
-            header("location: edit-or-insert.php?insert=done&user={$userID}");
+            header("location: quick-score.php?class={$mp_class}&paper={$mp_nmberFetch}");
         }
     }
 }
@@ -98,7 +115,7 @@ if (isset($_GET['user'])) {
                         </a>";
                     } else {
                         echo '
-                        <a onclick="loadinEffect()" href="add-score.php">
+                        <a onclick="loadinEffect()" href="../admin.php">
                         <i class="fa-solid fa-angle-left"></i>
                         </a>
                         ';
@@ -111,7 +128,7 @@ if (isset($_GET['user'])) {
 
             <!-- add times form  -->
             <form method="post">
-                <h2> Add a Score </h2>
+                <h2> Edit a Score </h2>
                 <p style="color: tomato; text-align: center;"> <?php echo $allready; ?> </p>
                 <p> User ID : <br>
                     <input type="number" placeholder="<?php echo $userID; ?>" readonly>
@@ -125,43 +142,86 @@ if (isset($_GET['user'])) {
                 <p> Select Paper :<br>
                     <select name="paper" required>
                         <option value=""> Choose </option>
-                        <?php
-                        for ($mp = 1; $mp <= 9; $mp++) {
-                            echo "<option value='MP 0{$mp}'";
-                            if ($mp == $paper_count) {
-                                echo "selected";
-                            }
-                            echo "> MP 0{$mp} </option>";
-                        }
-
-                        for ($mp = 10; $mp <= 30; $mp++) {
-                            echo "<option value='MP {$mp}'";
-                            if ($mp == $paper_count) {
-                                echo "selected";
-                            }
-                            echo "> MP {$mp} </option>";
-                        }
-                        ?>
+                        <option value="">Choose Paper Number</option>
+                        <option value="MP 01 AND 02" <?php if ($mp_nmberFetch == 'MP 01 AND 02') {
+                                                            echo "selected";
+                                                        } ?>>MP 01 AND 02</option>
+                        <option value="MP 03 AND 04" <?php if ($mp_nmberFetch == 'MP 03 AND 04') {
+                                                            echo "selected";
+                                                        } ?>>MP 03 AND 04</option>
+                        <option value="MP 05 AND 06" <?php if ($mp_nmberFetch == 'MP 05 AND 06') {
+                                                            echo "selected";
+                                                        } ?>>MP 05 AND 06</option>
+                        <option value="MP 07 AND 08" <?php if ($mp_nmberFetch == 'MP 07 AND 08') {
+                                                            echo "selected";
+                                                        } ?>>MP 07 AND 08</option>
+                        <option value="MP 09 AND 10" <?php if ($mp_nmberFetch == 'MP 09 AND 10') {
+                                                            echo "selected";
+                                                        } ?>>MP 09 AND 10</option>
+                        <option value="MP 11 AND 12" <?php if ($mp_nmberFetch == 'MP 11 AND 12') {
+                                                            echo "selected";
+                                                        } ?>>MP 11 AND 12</option>
+                        <option value="MP 13 AND 14" <?php if ($mp_nmberFetch == 'MP 13 AND 14') {
+                                                            echo "selected";
+                                                        } ?>>MP 13 AND 14</option>
+                        <option value="MP 15 AND 16" <?php if ($mp_nmberFetch == 'MP 15 AND 16') {
+                                                            echo "selected";
+                                                        } ?>>MP 15 AND 16</option>
+                        <option value="MP 17 AND 18" <?php if ($mp_nmberFetch == 'MP 17 AND 18') {
+                                                            echo "selected";
+                                                        } ?>>MP 17 AND 18</option>
+                        <option value="MP 19 AND 20" <?php if ($mp_nmberFetch == 'MP 19 AND 20') {
+                                                            echo "selected";
+                                                        } ?>>MP 19 AND 20</option>
+                        <option value="MP 21 AND 22" <?php if ($mp_nmberFetch == 'MP 21 AND 22') {
+                                                            echo "selected";
+                                                        } ?>>MP 21 AND 22</option>
+                        <option value="MP 23 AND 24" <?php if ($mp_nmberFetch == 'MP 23 AND 24') {
+                                                            echo "selected";
+                                                        } ?>>MP 23 AND 24</option>
+                        <option value="MP 25 AND 26" <?php if ($mp_nmberFetch == 'MP 25 AND 26') {
+                                                            echo "selected";
+                                                        } ?>>MP 25 AND 26</option>
+                        <option value="MP 27 AND 28" <?php if ($mp_nmberFetch == 'MP 27 AND 28') {
+                                                            echo "selected";
+                                                        } ?>>MP 27 AND 28</option>
+                        <option value="MP 29 AND 30" <?php if ($mp_nmberFetch == 'MP 29 AND 30') {
+                                                            echo "selected";
+                                                        } ?>>MP 29 AND 30</option>
+                        <option value="MP 31 AND 32" <?php if ($mp_nmberFetch == 'MP 31 AND 32') {
+                                                            echo "selected";
+                                                        } ?>>MP 31 AND 32</option>
+                        <option value="MP 33 AND 34" <?php if ($mp_nmberFetch == 'MP 33 AND 34') {
+                                                            echo "selected";
+                                                        } ?>>MP 33 AND 34</option>
+                        <option value="MP 35 AND 36" <?php if ($mp_nmberFetch == 'MP 35 AND 36') {
+                                                            echo "selected";
+                                                        } ?>>MP 35 AND 36</option>
+                        <option value="MP 37 AND 38" <?php if ($mp_nmberFetch == 'MP 37 AND 38') {
+                                                            echo "selected";
+                                                        } ?>>MP 37 AND 38</option>
+                        <option value="MP 39 AND 40" <?php if ($mp_nmberFetch == 'MP 39 AND 40') {
+                                                            echo "selected";
+                                                        } ?>>MP 39 AND 40</option>
                     </select>
                 </p>
-                <p>Verified : <input type="radio" value="1" name="copied"></p>
-                <p>Copied : <input type="radio" value="3" name="copied"></p>
-                <p>Absent : <input type="radio" value="2" name="copied"></p>
+                <p>Verified : <input type="radio" value="1" name="copied" <?= $one; ?>></p>
+                <p>Absent : <input type="radio" value="2" name="copied" <?= $tow; ?>></p>
+                <p>Copied : <input type="radio" value="3" name="copied" <?= $three; ?>></p>
 
                 <p>
                     Score : <br>
-                    <input type="number" name="score" placeholder="Enter Score" max="100">
+                    <input type="number" name="score" placeholder="Enter Score" max="100" value="<?= $mp_score; ?>">
                 </p>
                 <p><input onclick="loadinEffect()" type="submit" name="insert" value="Save"></p>
             </form>
-            <br><br>
+            <br>
 
             <!-- Score list  -->
             <ul>
                 <?php
-                if (mysqli_num_rows($scoreList_result) > 0) {
-                    echo '<p style="text-align: center;"> Click & delete <i class="fa-solid fa-hand-point-down"></i> </p>';
-                    while ($score_list = mysqli_fetch_assoc($scoreList_result)) {
+                if (mysqli_num_rows($scoreList2_result) > 0) {
+                    while ($score_list = mysqli_fetch_assoc($scoreList2_result)) {
                         $ID = $score_list['ID'];
                         $Test = $score_list['Test'];
                         $Score = $score_list['Score'];
@@ -173,8 +233,8 @@ if (isset($_GET['user'])) {
                         } else {
                             $Status_view = "<span style='color: red;'> Copied </span>";
                         }
-                        echo "<a onclick='loadinEffect()' href='edit-or-insert.php?delete={$ID}&user={$userID}'>
-                    <li style='justify-content: space-between; display: flex;'><div>{$Test}</div> <div>{$Score} %</div> <div>{$Status_view}</div></li>
+                        echo "<a onclick='loadinEffect()' href='edit-or-insert.php?delete={$ID}&user={$userID}&SSID={$ID}'>
+                    <li style='justify-content: center; display: flex; background-color: red; color: #fff; font-weight: bold;'> DELETE </li>
                 </a>";
                     }
                 }

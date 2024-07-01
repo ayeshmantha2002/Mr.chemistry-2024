@@ -1,8 +1,8 @@
 <?php
 $dbhost      =   "localhost";
-$dbuser      =   "root";
-$dbpassword  =   "";
-$dbname      =   "mr-chemestry";
+$dbuser      =   "mrchemis_mr-chemistry";
+$dbpassword  =   "qHDCLNKBbYKapi0";
+$dbname      =   "mrchemis_mr-chemestry";
 
 $connection =   mysqli_connect($dbhost, $dbuser, $dbpassword, $dbname);
 

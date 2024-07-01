@@ -14,9 +14,9 @@ if (!isset($_SESSION['ID'])) {
             header("location: index");
         } else {
             // filter videos 
-            if (isset($_POST['search'])) {
-                $searchID = mysqli_real_escape_string($connection, $_POST['searchID']);
-                $video = "SELECT * FROM videos WHERE `Catagory` = 'paper' AND (`Title` LIKE '%{$searchID}%' OR `Description` LIKE '%{$searchID}%')";
+            if (isset($_GET['searchID'])) {
+                $searchID = mysqli_real_escape_string($connection, $_GET['searchID']);
+                $video = "SELECT * FROM videos WHERE `Catagory` = 'paper' AND (`UniqueID` LIKE '%{$searchID}%' OR `Title` LIKE '%{$searchID}%' OR `Description` LIKE '%{$searchID}%')";
             } else {
                 $video = "SELECT * FROM videos WHERE `Catagory` = 'paper'";
             }
@@ -97,7 +97,7 @@ if (!isset($_SESSION['ID'])) {
                 <div class="classList mod-tute">
                     <h2> Search Document </h2>
                     <div class="classListBack">
-                        <form method="post">
+                        <form method="get">
                             <p>
                                 Title or file name
                                 <br>
@@ -105,7 +105,7 @@ if (!isset($_SESSION['ID'])) {
                             </p>
                             <br>
                             <p>
-                                <button type="submit" onclick='loadinEffect()' name="search"> Search </button>
+                                <button type="submit" onclick='loadinEffect()'> Search </button>
                             </p>
                         </form>
                     </div>

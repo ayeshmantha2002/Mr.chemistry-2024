@@ -17,7 +17,7 @@ if (!isset($_SESSION['ID'])) {
             if (isset($_POST['search'])) {
                 $searchID = mysqli_real_escape_string($connection, $_POST['searchID']);
                 $search = $searchID;
-                $modle_paper = "SELECT * FROM `modle_papers_&_tutes` WHERE (`Title` LIKE '%{$searchID}%' OR `File_name` LIKE '%{$searchID}%' OR `Date_Time` LIKE '%{$searchID}%') AND `Class` = {$_SESSION['Class']} AND `Category` = 1 AND `Status` = 1";
+                $modle_paper = "SELECT * FROM `modle_papers_&_tutes` WHERE (`Title` LIKE '%{$searchID}%' OR `File_name` LIKE '%{$searchID}%' OR `Date_Time` LIKE '%{$searchID}%') AND `Class` IN(1 , {$_SESSION['Class']}) AND `Category` = 1 AND `Status` = 1";
             } else {
                 $modle_paper = "SELECT * FROM `modle_papers_&_tutes` WHERE `Class` IN(1 , {$_SESSION['Class']}) AND `Category` = 1 AND `Status` = 1";
             }
@@ -39,10 +39,9 @@ if (!isset($_SESSION['ID'])) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <link rel="stylesheet" href="assect/css/contact.css">
     <link rel="stylesheet" href="assect/css/style.css">
-    <link rel="stylesheet" href="boxicons.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/boxicons@latest/css/boxicons.min.css">
     <link rel="icon" href="assect/img/icon/logo.png">
-
+    <link rel="stylesheet" href="assect/css/modify.css">
 </head>
 
 <body>
@@ -61,14 +60,6 @@ if (!isset($_SESSION['ID'])) {
                 cursor: pointer;"></i> Mr.Chemistry<span id="maths">.lk </span> </h3>
                 <p> NIPUN PALLIYAGURU </p>
             </div>
-            <ul>
-                <li><a href="index"> Home </a></li>
-                <?php
-                if (!isset($_SESSION['ID'])) {
-                    echo '<li><a href="login"> Login </a></li>';
-                }
-                ?>
-            </ul>
         </div>
     </div>
 
@@ -81,7 +72,7 @@ if (!isset($_SESSION['ID'])) {
         <div class="content">
             <div class="lable">
                 <div class="lableAling">
-                    <h2> Modle Papers </h2>
+                    <h2> Model Papers </h2>
                     <p>Mr.ChemistrY - <span style='font-family: "Noto Sans Sinhala"; font-weight: bold;'> වෙනස්ම රහකට </span> ChemistrY </p>
                 </div>
             </div>
@@ -108,28 +99,38 @@ if (!isset($_SESSION['ID'])) {
                 <?php
                 if ($modle_paper_result) {
                     if (mysqli_num_rows($modle_paper_result) > 0) {
-                        echo "<ul>";
-                        $x = 0;
                         while ($document = mysqli_fetch_assoc($modle_paper_result)) {
-                            $x = $x + 1;
                             $file_name = $document['File_name'];
+                            $UniqueID = $document['UniqueID'];
                             $class = $document['Class'];
                             $title = $document['Title'];
                             $File_name = $document['File_name'];
                             $Date_Time = $document['Date_Time'];
                             $parth = "download/documents/file.php?doc=$file_name";
-                            echo "<a href='$parth' target='_blank'>";
-                            echo "<li>";
-                            echo "<div>";
-                            echo " <p style='color: #000;'> <span style='font-weight: bold; font-family: Poppins;'>Title : </span>{$title} </p> ";
-                            echo " <p style='color: #000;'> <span style='font-weight: bold; font-family: Poppins;'>Class : </span>{$class} </p> ";
-                            echo " <p style='color: #000;'> <span style='font-weight: bold; font-family: Poppins;'>File Name : </span>{$File_name} </p> ";
-                            echo " <p style='color: #000;'> <span style='font-weight: bold; font-family: Poppins;'>Date : </span>{$Date_Time} </p> ";
-                            echo "</div>";
-                            echo "</li>";
-                            echo "</a>";
+
+                            $modle_paperMarking = "SELECT `File_name` FROM `modle_papers_&_tutes` WHERE `Category` = 3 AND `UniqueID` = '{$UniqueID}'";
+                            $modle_paperMarking_Query = mysqli_query($connection, $modle_paperMarking);
+
+                            if (mysqli_num_rows($modle_paperMarking_Query) > 0) {
+                                $fetchName = mysqli_fetch_assoc($modle_paperMarking_Query);
+                                $file_nameMarking = $fetchName['File_name'];
+                                $MarkinParth = "<a href='download/documents/file.php?doc=$file_nameMarking' target='_blank'> Marking </a>";
+                            } else {
+                                $MarkinParth = "<a href='modle-papers.php?wait=soon'> Marking </a>";
+                            }
+
+                            echo "<div class='paperDIV'>
+                            <div class='title'>
+                                <img src='assect/img/content/doc.jpg' alt='pdf'>
+                                <h3> {$title} </h3>
+                            </div>
+                            <div class='buttons'>
+                                <a href='{$parth}' target='_blank'> Paper </a>
+                                {$MarkinParth}
+                                <a href='paper-discussions.php?searchID={$UniqueID}'> Video Discussions </a>
+                            </div>
+                        </div>";
                         }
-                        echo '</ul>';
                     } else {
                         echo "<ul>";
                         echo "<a href='#'>";
@@ -156,6 +157,21 @@ if (!isset($_SESSION['ID'])) {
     <div class="blur"></div>
 
     <?php
+
+    if (isset($_GET['wait'])) {
+        echo '<div class="paperSoon">
+            <div class="paperSoon_Alin">
+                <div>
+                    <i class="fa-solid fa-clock fa-bounce fa-2xl"></i>
+                    <br><br>
+                    <p> "Marking scheme" will be uploaded very soon. </p>
+                    <br>
+                    <p><a href="modle-papers"> OK </a></p>
+                </div>
+            </div>
+        </div>';
+    }
+
     // bottom navigation bar
     include('includes/bottomNav2.php');
     ?>

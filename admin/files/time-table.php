@@ -1,7 +1,7 @@
 <?php
 include "../../includes/connection.php";
 if (isset($_SESSION['ID'])) {
-    if ($_SESSION['ID'] >= 4) {
+    if ($_SESSION['ID'] >= 2) {
         header("location: ../../index");
     }
 } else {
@@ -83,7 +83,7 @@ if (isset($_GET['delete'])) {
                         <option value=""> Choose </option>
                         <option value="THEORY"> THEORY </option>
                         <option value="REVISION"> REVISION </option>
-                        <option value="THEORY REVISION"> THEORY REVISION </option>
+                        <option value="PAPER ClASS"> PAPER ClASS </option>
                     </select>
                 </p>
                 <p>

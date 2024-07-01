@@ -9,6 +9,7 @@ if (isset($_SESSION['ID'])) {
         if (mysqli_num_rows($result) == 1) {
             $verify =   mysqli_fetch_assoc($result);
             $verifyUser =   $verify['Confirm_user'];
+            $userName =   $verify['userName'];
             $First_name =   $verify['First_name'];
             $Last_name  =   $verify['Last_name'];
             $E_mail     =   $verify['E_mail'];
@@ -42,12 +43,12 @@ if (isset($_SESSION['ID'])) {
                 ['Test', 'Your Score', 'Average Score'],
                 <?php
 
-                $query_score  =   "SELECT * FROM score WHERE User_ID ={$_SESSION['ID']} AND Class = '{$Class}' AND Status = 1 ORDER BY ID DESC LIMIT 0, 6";
+                $query_score  =   "SELECT * FROM score WHERE User_ID ='{$userName}' AND Class = '{$Class}' AND Status = 1 ORDER BY ID DESC LIMIT 0, 6";
                 $result_score =    mysqli_query($connection, $query_score);
 
                 if (mysqli_num_rows($result_score)) {
                     while ($score = mysqli_fetch_assoc($result_score)) {
-                        echo "['" . $score['Test'] . "'," . $score['Score'] . ", ".$score['Average']."],";
+                        echo "['" . $score['Test'] . "'," . $score['Score'] . ", " . $score['Average'] . "],";
                     };
                 } else {
                     echo "['No Records', 0, 0],";

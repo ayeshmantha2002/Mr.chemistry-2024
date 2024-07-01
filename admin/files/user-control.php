@@ -1,7 +1,7 @@
 <?php
 include "../../includes/connection.php";
 if (isset($_SESSION['ID'])) {
-    if ($_SESSION['ID'] >= 3) {
+    if ($_SESSION['ID'] >= 2) {
         header("location: ../../index");
     }
 } else {
@@ -19,10 +19,11 @@ if (isset($_COOKIE['Class'])) {
 // fetch students details
 if (isset($_GET['user'])) {
     $userID = mysqli_real_escape_string($connection, $_GET['user']);
+    $PID = mysqli_real_escape_string($connection, $_GET['ID']);
     if ($userID < 0) {
         header("location: manage-student.php");
     }
-    $user_details = "SELECT * FROM tbl_register WHERE `userName` = '{$userID}'";
+    $user_details = "SELECT * FROM tbl_register WHERE `ID` = '{$PID}'";
     $user_details_result = mysqli_query($connection, $user_details);
     if (mysqli_num_rows($user_details_result) == 1) {
         $details = mysqli_fetch_assoc($user_details_result);
@@ -49,12 +50,12 @@ if (isset($_GET['user'])) {
         if ($Is_Active == 1) {
             if ($Confirm_user == 1) {
                 $status = "<span style='color: green;'>A valid student</span>";
-                $link = "<a onclick='loadinEffect()' href='user-control.php?user={$ID}&status=suspend'>Suspend Now </a>";
+                $link = "<a onclick='loadinEffect()' href='user-control.php?user={$userID}&ID={$PID}&status=suspend'>Suspend Now </a>";
             } elseif ($Confirm_user == 2) {
-                $link = "<a onclick='loadinEffect()' href='user-control.php?user={$ID}&status=active' style='background-color: red;'> Activete Now </a>";
+                $link = "<a onclick='loadinEffect()' href='user-control.php?user={$userID}&ID={$PID}&status=active' style='background-color: red;'> Activete Now </a>";
                 $status = "<span style='color: red;'>Suspended student</span>";
             } elseif ($Confirm_user == 3) {
-                $link = "<a onclick='loadinEffect()' href='user-control.php?user={$ID}&status=active'> Activete Now </a>" . "<a onclick='loadinEffect()' href='user-control.php?user={$ID}&status=suspend' style='background-color: red;'>Suspend Now </a>";
+                $link = "<a onclick='loadinEffect()' href='user-control.php?user={$userID}&ID={$PID}&status=active'> Activete Now </a>" . "<a onclick='loadinEffect()' href='user-control.php?user={$userID}&ID={$PID}&status=suspend' style='background-color: red;'>Suspend Now </a>";
                 $status = "<span style='color: blue;'>A new student</span>";
             }
         } elseif ($Is_Active == 0) {
@@ -84,7 +85,7 @@ if (isset($_GET['user'])) {
             $UP_Class = mysqli_real_escape_string($connection, $_POST['Class']);
             $UP_cate = mysqli_real_escape_string($connection, $_POST['cate']);
 
-            $studentUpdate = "UPDATE `tbl_register` SET `First_name` = '{$UP_First_name}', `Last_name` = '{$UP_Last_name}', `userName` = '{$UP_userName}', `Class` = {$UP_Class}, `Category` = '{$UP_cate}' WHERE `userName` = '{$userID}'";
+            $studentUpdate = "UPDATE `tbl_register` SET `First_name` = '{$UP_First_name}', `Last_name` = '{$UP_Last_name}', `userName` = '{$UP_userName}', `Class` = {$UP_Class}, `Category` = '{$UP_cate}' WHERE `ID` = '{$PID}'";
             $studentUpdate_result = mysqli_query($connection, $studentUpdate);
 
             if ($studentUpdate_result) {
@@ -102,6 +103,20 @@ if (isset($_GET['user'])) {
 
             if ($studentUpdatePass_result) {
                 header("location: manage-student.php?insert=done&{$cate}");
+            }
+        }
+
+        // delete account
+        if (isset($_GET['delete_account'])) {
+            $deleteID = mysqli_real_escape_string($connection, $_GET['delete_account']);
+            $delete = "DELETE FROM `tbl_register` WHERE `ID` = {$PID} LIMIT 1";
+            $delete_query = mysqli_query($connection, $delete);
+            if ($delete_query) {
+                header("location: manage-student.php?insert=done&{$cate}");
+            } else {
+                echo " <script>
+                alert(' DELETE ERROR.! ');
+            </script> ";
             }
         }
     }
@@ -172,6 +187,12 @@ if (isset($_GET['user'])) {
             </div>
             <div class="full">
                 <?php echo $link; ?>
+                <br>
+                <?php
+                if ($userID > 2) {
+                    echo "<a href='user-control.php?ID={$PID}&user={$userID}&delete_account={$userID}' style='background-color: red;'>Permanat Delete</a>";
+                }
+                ?>
             </div>
 
             <!-- update form  -->

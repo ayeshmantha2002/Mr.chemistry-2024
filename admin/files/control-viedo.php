@@ -46,7 +46,7 @@ $Lesson40 = "";
 
 include "../../includes/connection.php";
 if (isset($_SESSION['ID'])) {
-    if ($_SESSION['ID'] >= 3) {
+    if ($_SESSION['ID'] >= 2) {
         header("location: ../../index");
     }
 } else {

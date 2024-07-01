@@ -39,7 +39,7 @@ if (isset($_POST['submit'])) {
     $Mail_verification = sha1($E_mail . time());
     $Mail_verification_URL  =   "https://mrchemistry.lk/verify.php?code=" . $Mail_verification;
 
-    $Check  =   "SELECT * FROM tbl_register WHERE E_mail = '{$E_mail}' OR userName = '{$E_mail}' LIMIT 1";
+    $Check  =   "SELECT * FROM tbl_register WHERE E_mail = '{$E_mail}' LIMIT 1";
     $CheckResult =   mysqli_query($connection, $Check);
 
     if ($CheckResult) {

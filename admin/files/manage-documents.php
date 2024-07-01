@@ -1,7 +1,7 @@
 <?php
 include "../../includes/connection.php";
 if (isset($_SESSION['ID'])) {
-    if ($_SESSION['ID'] >= 3) {
+    if ($_SESSION['ID'] >= 2) {
         header("location: ../../index");
     }
 } else {
@@ -20,17 +20,21 @@ if (isset($_GET['class'])) {
 }
 
 // documents list
-$doduments_list = "SELECT * FROM `modle_papers_&_tutes`";
+$doduments_list = "SELECT * FROM `modle_papers_&_tutes` ORDER BY `Title`";
 if (isset($_GET['class'])) {
     $cl = mysqli_real_escape_string($connection, $_GET['class']);
     if (isset($_COOKIE['Category'])) {
-        $doduments_list = "SELECT * FROM `modle_papers_&_tutes` WHERE `Class` = {$cl} AND `Category` = {$_COOKIE['Category']}";
+        $doduments_list = "SELECT * FROM `modle_papers_&_tutes` WHERE `Class` = {$cl} AND `Category` = {$_COOKIE['Category']} ORDER BY `Title`";
     } else {
-        $doduments_list = "SELECT * FROM `modle_papers_&_tutes` WHERE `Class` = {$cl}";
+        $doduments_list = "SELECT * FROM `modle_papers_&_tutes` WHERE `Class` = {$cl} ORDER BY `Title`";
     }
 } elseif (isset($_GET['Category'])) {
     $cat = mysqli_real_escape_string($connection, $_GET['Category']);
-    $doduments_list = "SELECT * FROM `modle_papers_&_tutes` WHERE `Category` = {$cat}";
+    if ($cat == 0) {
+        $doduments_list = "SELECT * FROM `modle_papers_&_tutes` WHERE `Status` = {$cat} ORDER BY `Title`";
+    } else {
+        $doduments_list = "SELECT * FROM `modle_papers_&_tutes` WHERE `Category` = {$cat} ORDER BY `Title`";
+    }
 }
 
 if (isset($_POST['search'])) {
@@ -65,19 +69,23 @@ if (isset($_POST['add'])) {
         header("location: manage-documents.php?insert=error");
     } else {
         $name = mysqli_real_escape_string($connection, $_POST['name']);
-        $name = mysqli_real_escape_string($connection, $_POST['name']);
+        $unique = mysqli_real_escape_string($connection, $_POST['unique']);
         $category = mysqli_real_escape_string($connection, $_POST['category']);
         $class = mysqli_real_escape_string($connection, $_POST['class']);
         $upload_to = "../docs/";
 
-        $add_docs = "INSERT INTO `modle_papers_&_tutes` (`Title`, `File_name`, `Category`, `Class`, `Status`) VALUE ('{$name}', '{$fileName}', {$category}, {$class}, 1)";
-        $add_docs_result = mysqli_query($connection, $add_docs);
-        if ($add_docs_result) {
-            $uploadDocuments = move_uploaded_file($fileTemp, $upload_to . $fileName);
+        $add_docs = "INSERT INTO `modle_papers_&_tutes` (`UniqueID`, `Title`, `File_name`, `Category`, `Class`, `Status`) VALUE ('{$unique}', '{$name}', '{$fileName}', {$category}, {$class}, 1)";
+        $uploadDocuments = move_uploaded_file($fileTemp, $upload_to . $fileName);
 
-            if ($uploadDocuments) {
+        if ($uploadDocuments) {
+            $add_docs_result = mysqli_query($connection, $add_docs);
+            if ($add_docs_result) {
                 header("location: manage-documents.php?insert=done");
+            } else {
+                header("location: manage-documents.php?upload=error");
             }
+        } else {
+            header("location: manage-documents.php?upload=error");
         }
     }
 }
@@ -89,7 +97,7 @@ if (isset($_POST['add'])) {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Manage Documents</title>
+    <title> Manage Documents </title>
     <link rel="stylesheet" href="../../assect/css/admin.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
@@ -121,10 +129,16 @@ if (isset($_POST['add'])) {
                 ?>
                 <a onclick='loadinEffect()' href="manage-documents.php?Category=1">Model Papers</a>
                 <a onclick='loadinEffect()' href="manage-documents.php?Category=2">Tutes</a>
-                <a onclick='loadinEffect()' href="manage-documents.php?Category=3">Class Mate Paper Marking </a>
+                <a onclick='loadinEffect()' href="manage-documents.php?Category=3">Modle Paper Marking </a>
+                <a onclick='loadinEffect()' href="manage-documents.php?Category=4">Class Mate Paper </a>
+                <a onclick='loadinEffect()' href="manage-documents.php?Category=5">Class Mate Paper Marking </a>
+                <a onclick='loadinEffect()' href="manage-documents.php?Category=6">Notes </a>
             </div>
-            <br>
+            <br><br>
             <div class="full">
+                <a onclick='loadinEffect()' href="manage-documents.php?Category=0"> Hidden documents </a>
+
+                <br>
                 <a id="add-btn" href="#add-docs"> Add Documents </a>
             </div>
 
@@ -147,12 +161,20 @@ if (isset($_POST['add'])) {
                 </p>
 
                 <p>
+                    Unique ID : <br>
+                    <input name="unique" placeholder="Unique ID">
+                </p>
+
+                <p>
                     Category : <br>
                     <select name="category">
                         <option value="">Choose</option>
-                        <option value="1">Modle Paper</option>
                         <option value="2">Tute</option>
-                        <option value="3">Class Mate Paper Marking</option>
+                        <option value="1">Modle Paper</option>
+                        <option value="3">Modle Paper Marking</option>
+                        <option value="4">Class Mate Paper</option>
+                        <option value="5">Class Mate Paper Marking</option>
+                        <option value="6">Notes</option>
                     </select>
                 </p>
                 <p>
@@ -196,6 +218,14 @@ if (isset($_POST['add'])) {
                                 $DOC_CAT = "Modle Paper";
                             } elseif ($doc_cat == 2) {
                                 $DOC_CAT = "Tutes";
+                            } elseif ($doc_cat == 3) {
+                                $DOC_CAT = "Modle Paper Marking";
+                            } elseif ($doc_cat == 4) {
+                                $DOC_CAT = "Class Mate Paper";
+                            } elseif ($doc_cat == 5) {
+                                $DOC_CAT = "Class Mate Paper Marking";
+                            } elseif ($doc_cat == 6) {
+                                $DOC_CAT = "Notes";
                             }
 
                             echo "<a href='docs-manage.php?doc={$doc_id}' onclick='loadinEffect()'>
@@ -221,6 +251,21 @@ if (isset($_POST['add'])) {
             <div class='done-message-center'>
                 <p> <i class='fa-solid fa-circle-check fa-bounce fa-2xl'></i> </p>
                 <h1> Done </h1>
+                <p> <a href='manage-documents.php'> OK </a> </p>
+            </div>
+        </div>";
+        }
+    }
+
+    // error message
+    if (isset($_GET['upload'])) {
+        if ($_GET['upload'] == "error") {
+            echo "<div class='done-message'>
+            <div class='done-message-center'>
+                <p> <i style='color: red;' class='fa-solid fa-circle-exclamation fa-bounce fa-lg'></i> </p>
+                <h1 style='color: red;'> Your connection is poor. </h1>
+                <h3 style='color: red;'> File upload error...! </h3>
+                <br>
                 <p> <a href='manage-documents.php'> OK </a> </p>
             </div>
         </div>";

@@ -2,7 +2,7 @@
 include "../includes/connection.php";
 if (!isset($_SESSION['ID'])) {
     header("location: ../index");
-} elseif ($_SESSION['ID'] > 3) {
+} elseif ($_SESSION['ID'] > 2) {
     header("location: ../index");
 } else {
 
@@ -39,6 +39,12 @@ if (!isset($_SESSION['ID'])) {
     <title>Admin</title>
     <link rel="stylesheet" href="../assect/css/admin.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
+    <style>
+        .area-aline {
+            max-width: 2000px;
+        }
+    </style>
 </head>
 
 <body>
@@ -50,6 +56,9 @@ if (!isset($_SESSION['ID'])) {
                 <p class="bar"><i class="fa-solid fa-bars-staggered fa-rotate-180"></i></p>
                 <div class="nav-align">
                     <ul>
+                        <a href="files/add-score.php" onclick='loadinEffect()'>
+                            <li> Paper Score <i class="fa-solid fa-link"></i> </li>
+                        </a>
                         <a href="files/manage-link.php" onclick='loadinEffect()'>
                             <li> Link management <i class="fa-solid fa-link"></i> </li>
                         </a>
@@ -71,17 +80,53 @@ if (!isset($_SESSION['ID'])) {
             <div class="popup class">
                 <i class="fa-solid fa-circle-xmark close" style="color: #ff0000;"></i>
                 <div class="popup-center">
-                    <div>
-                        <h2> Choose class </h2>
-                        <?php
-                        if (mysqli_num_rows($class_list_result1) > 0) {
-                            while ($class1 = mysqli_fetch_assoc($class_list_result1)) {
-                                echo "<a href='files/add-score.php?class={$class1['class']}' onclick='loadinEffect()'>{$class1['class']}</a>";
+                    <form action="files/quick-score.php" method="get">
+                        <select name="class" required>
+                            <option value=""> Choose Class </option>
+                            <?php
+                            if (mysqli_num_rows($class_list_result1) > 0) {
+                                while ($class1 = mysqli_fetch_assoc($class_list_result1)) {
+                                    echo "<option value='{$class1['class']}'> {$class1['class']} </option>";
+                                }
                             }
-                        }
-                        ?>
-                        <a href='files/add-score.php' onclick='loadinEffect()'>All</a>
-                    </div>
+                            ?>
+                        </select>
+                        <br>
+                        <br>
+                        <select name="branch" required>
+                            <option value=""> Choose Branch </option>
+                            <option value="BD"> Badulla </option>
+                            <option value="BW"> Bandarawela </option>
+                        </select>
+                        <br>
+                        <br>
+                        <select name="paper" required>
+                            <option value="">Choose Paper Number</option>
+                            <option value="MP 01 AND 02">MP 01 AND 02</option>
+                            <option value="MP 03 AND 04">MP 03 AND 04</option>
+                            <option value="MP 05 AND 06">MP 05 AND 06</option>
+                            <option value="MP 07 AND 08">MP 07 AND 08</option>
+                            <option value="MP 09 AND 10">MP 09 AND 10</option>
+                            <option value="MP 11 AND 12">MP 11 AND 12</option>
+                            <option value="MP 13 AND 14">MP 13 AND 14</option>
+                            <option value="MP 15 AND 16">MP 15 AND 16</option>
+                            <option value="MP 17 AND 18">MP 17 AND 18</option>
+                            <option value="MP 19 AND 20">MP 19 AND 20</option>
+                            <option value="MP 21 AND 22">MP 21 AND 22</option>
+                            <option value="MP 23 AND 24">MP 23 AND 24</option>
+                            <option value="MP 25 AND 26">MP 25 AND 26</option>
+                            <option value="MP 27 AND 28">MP 27 AND 28</option>
+                            <option value="MP 29 AND 30">MP 29 AND 30</option>
+                            <option value="MP 31 AND 32">MP 31 AND 32</option>
+                            <option value="MP 33 AND 34">MP 33 AND 34</option>
+                            <option value="MP 35 AND 36">MP 35 AND 36</option>
+                            <option value="MP 37 AND 38">MP 37 AND 38</option>
+                            <option value="MP 39 AND 40">MP 39 AND 40</option>
+                        </select>
+                        <br>
+                        <br>
+                        <input type="submit" value="Submit">
+                    </form>
                 </div>
             </div>
 
@@ -163,7 +208,7 @@ if (!isset($_SESSION['ID'])) {
                             <div>
                                 <i class="fa-solid fa-newspaper"></i>
                             </div>
-                            <p> Paper<br>Score </p>
+                            <p> Add<br>Score </p>
                         </a>
                     </div>
                     <div class="button">
@@ -206,9 +251,9 @@ if (!isset($_SESSION['ID'])) {
                         </li>';
 
                         while ($users = mysqli_fetch_assoc($new_users_result)) {
-                            echo "<a href='files/user-control.php?user={$users['userName']}' onclick='loadinEffect()'>
+                            echo "<a href='files/user-control.php?ID={$users['ID']}&user={$users['userName']}' onclick='loadinEffect()'>
                         <li>
-                            <div>{$users['ID']}</div>
+                            <div>{$users['userName']}</div>
                             <div>{$users['Class']}</div>
                             <div>{$users['First_name']} {$users['Last_name']}</div>
                         </li>
