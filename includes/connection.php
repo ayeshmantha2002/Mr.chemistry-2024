@@ -2,7 +2,7 @@
 $dbhost      =   "localhost";
 $dbuser      =   "root";
 $dbpassword  =   "";
-$dbname      =   "mr-chemistry";
+$dbname      =   "mr-chemestry";
 
 $connection =   mysqli_connect($dbhost, $dbuser, $dbpassword, $dbname);
 
