@@ -38,7 +38,7 @@ if (isset($_GET['Logout'])) {
     <link rel="icon" href="assect/img/icon/logo.png">
     <style>
         .rankPic {
-            grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
+            grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr 1fr;
         }
     </style>
 </head>

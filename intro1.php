@@ -1,2 +1,2 @@
 <?php
-header("location:login");
+header("location:https://mrchemistry.lk/App");

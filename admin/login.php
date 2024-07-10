@@ -22,6 +22,12 @@ if (isset($_POST['submit'])) {
         $_SESSION['Class']    =   $userFetch['Class'];
         $_SESSION['verify']    =   $userFetch['Confirm_user'];
 
+        if (isset($_POST['stay'])) {
+            setcookie("ID", $_SESSION['ID'], time() + (86400 * 5), "/"); // 86400 = 1 day
+        } else {
+            setcookie("ID", NULL, -time() + (86400 * 5), "/");
+        }
+
         header("location: admin.php");
     } else {;
         $invalid = "Invalid email address or password";
@@ -61,6 +67,7 @@ if (isset($_POST['submit'])) {
             <p style="text-align: center; color: red;"> <?php echo $invalid; ?> </p>
             <p> <input type="text" name="email" placeholder="E-mail / User Name" value="<?php echo $email; ?>"> </p>
             <p> <input type="password" name="Password" placeholder="Password" value="<?php echo $password; ?>"> </p>
+            <p> <input type="checkbox" name="stay" id="stay" style="width: 30px; cursor: pointer;"> : <label for="stay" style="font-weight: normal; cursor: pointer;"> Remember me </label> </p>
             <p> <input type="submit" name="submit" value="LOGIN"> </p>
         </form>
     </div>

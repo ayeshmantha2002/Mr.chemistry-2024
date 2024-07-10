@@ -9,6 +9,7 @@ if (isset($_COOKIE[session_name()])) {
 
 setcookie('userPasswordMRMATHS', NULL, -time() + 60 * 60 * 24 * 20);
 setcookie('userName', NULL, -time() + 60 * 60 * 24 * 20);
+setcookie("ID", NULL, -time() + (86400 * 5), "/");
 
 session_destroy();
 

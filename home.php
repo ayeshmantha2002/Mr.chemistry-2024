@@ -85,6 +85,14 @@ $banner_result = mysqli_query($connection, $banner);
                         </div>
                     </a>
                 </div>
+                <div class="list">
+                <a href="recording" onclick="loadingEffect()">
+                    <div class="first">
+                        <h3> Recording Class </h3>
+                        <img src="assect/img/content/recoding.jpg" alt="modle paper">
+                    </div>
+                </a>
+            </div>
             <div class="list">
                 <a href="modle-papers" onclick="loadingEffect()">
                     <div class="first">

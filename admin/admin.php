@@ -1,9 +1,27 @@
 <?php
 include "../includes/connection.php";
 if (!isset($_SESSION['ID'])) {
-    header("location: ../index");
+    if (isset($_COOKIE['ID'])) {
+        $chech = "SELECT * FROM `tbl_register` WHERE `ID` = {$_COOKIE['ID']} LIMIT 1";
+        $chech_result = mysqli_query($connection, $chech);
+        if (mysqli_num_rows($chech_result) == 1) {
+            $userFetch = mysqli_fetch_assoc($chech_result);
+
+            $_SESSION['ID']    =   $userFetch['ID'];
+            $_SESSION['userID_Name']    =   $userFetch['userName'];
+            $_SESSION['First_name']    =   $userFetch['First_name'];
+            $_SESSION['Last_name']    =   $userFetch['Last_name'];
+            $_SESSION['E_mail']    =   $userFetch['E_mail'];
+            $_SESSION['Class']    =   $userFetch['Class'];
+            $_SESSION['verify']    =   $userFetch['Confirm_user'];
+
+            header("location: admin.php");
+        }
+    } else {
+        header("location: login.php");
+    }
 } elseif ($_SESSION['ID'] > 2) {
-    header("location: ../index");
+    header("location: login.php");
 } else {
 
     // latest class list for paper
@@ -288,19 +306,19 @@ if (!isset($_SESSION['ID'])) {
                         </a>
                     </div>
                     <div class="button">
+                        <a href="files/video-note.php" onclick="loadinEffect()">
+                            <div>
+                                <i class="fa-solid fa-tv"></i>
+                            </div>
+                            <p> Video &<br>Notes </p>
+                        </a>
+                    </div>
+                    <div class="button">
                         <a href="files/past-paper.php" onclick="loadinEffect()">
                             <div>
                                 <i class="fa-solid fa-newspaper"></i>
                             </div>
                             <p> Past<br>Paper </p>
-                        </a>
-                    </div>
-                    <div class="button">
-                        <a href="files/time-table.php" onclick="loadinEffect()">
-                            <div>
-                                <i class="fa-regular fa-calendar-days"></i>
-                            </div>
-                            <p> Time<br>Table </p>
                         </a>
                     </div>
                     <div class="button">
@@ -314,14 +332,6 @@ if (!isset($_SESSION['ID'])) {
                 </div>
                 <br><br>
                 <div class="main-buttons">
-                    <div class="button">
-                        <a href="files/al-result.php" onclick="loadinEffect()">
-                            <div>
-                                <i class="fa-solid fa-square-poll-vertical"></i>
-                            </div>
-                            <p> A/L<br>result </p>
-                        </a>
-                    </div>
                     <div class="button">
                         <a href="files/manage-event.php" onclick="loadinEffect()">
                             <div>
@@ -338,20 +348,52 @@ if (!isset($_SESSION['ID'])) {
                             <p> Singup<br>Option </p>
                         </a>
                     </div>
-                    <!-- <div class="button">
-                         <a href="files/overview.php" onclick="loadinEffect()">
+                    <div class="button">
+                        <a href="files/time-table.php" onclick="loadinEffect()">
+                            <div>
+                                <i class="fa-regular fa-calendar-days"></i>
+                            </div>
+                            <p> Time<br>Table </p>
+                        </a>
+                    </div>
+                    <div class="button">
+                        <a href="files/links.php" onclick="loadinEffect()">
+                            <div>
+                                <i class="fa-solid fa-link"></i>
+                            </div>
+                            <p> Manage<br>Links </p>
+                        </a>
+                    </div>
+                    <div class="button">
+                        <a href="files/al-result.php" onclick="loadinEffect()">
+                            <div>
+                                <i class="fa-solid fa-square-poll-vertical"></i>
+                            </div>
+                            <p> A/L<br>result </p>
+                        </a>
+                    </div>
+                    <div class="button">
+                        <a href="files/overview.php" onclick="loadinEffect()">
                             <div>
                                 <i class="fa-solid fa-gauge-high"></i>
                             </div>
                             <p> Overview<br>site </p>
                         </a>
-                    </div> -->
+                    </div>
                     <div class="button">
                         <a href="../index" onclick="loadinEffect()">
                             <div>
                                 <i class="fa-solid fa-tv"></i>
                             </div>
                             <p> View<br>Website </p>
+                        </a>
+                    </div>
+                    <div class="button">
+                        <a href="logout.php" onclick="loadinEffect()">
+                            <div>
+                                <i class="fa-solid fa-right-from-bracket"></i>
+                            </div>
+                            <p> Logout </p>
                         </a>
                     </div>
                 </div>

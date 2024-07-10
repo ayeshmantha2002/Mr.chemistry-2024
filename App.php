@@ -43,7 +43,7 @@
                 <p> <b>[ ANDROID APP ]</b> </p>
                 <br>
                 <p>The best educational platform. Download and join us.</p>
-                <p> <a href="download/App/Mr.ChemistrY [ VERSION 2.0 ].apk" download> <img src="download/App/download.jpg" alt="download"> <br> </a>download size : <b>5.72 MB</b> </p>
+                <p> <a href="download/App/Mr.ChemistrY [2.1v].apk" download> <img src="download/App/download.jpg" alt="download"> <br> </a>download size : <b>5.72 MB</b> </p>
             </div>
             <br>
             <div class="contactApp">
